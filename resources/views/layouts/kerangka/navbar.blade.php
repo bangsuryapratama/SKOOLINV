@@ -318,7 +318,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">{{ explode(' ', Auth::user()->name)[0] }}</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -334,7 +334,7 @@
                           </div>
                           <div class="u-text">
                             <h4>{{ Auth::user()->name }}</h4>
-                            <p class="text-muted">hello@example.com</p>
+                            <p class="text-muted">{{ Auth::user()->email }}</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
@@ -351,7 +351,12 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();" class="dropdown-item">
+                        Logout</a>        
+                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                         @csrf
                       </li>
                     </div>
                   </ul>
@@ -359,5 +364,6 @@
               </ul>
             </div>
           </nav>
+      
 </body>
 </html>
