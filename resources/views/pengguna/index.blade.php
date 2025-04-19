@@ -49,15 +49,67 @@
                 @include('layouts.kerangka.navbar')
             <!-- End Navbar -->
           </div>
-  
 
 
 
-  <!--start main wrapper-->
-  
-  <!--end main wrapper-->
+        {{-- Table --}}
+        <div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Halaman Data Petugas</h3>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Data Petugas</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="panel-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                  </tr>
+                              </thead>
+                              @php $no = 1; @endphp
+                              @foreach ($pengguna as $data)
+                              <tbody>
+                                <tr>
+                                  <th scope="row">{{ $no++ }}</th>
+                                  <td>{{ $data->username }}</td>
+                                  <td>{{ $data->email }}</td>
+          
 
-  <!--start switcher-->
+                                  <td class="text-center col-4">
+                                    <form action="{{ route('pengguna.destroy' , $data->id) }}" method="post">
+                                      <a href="{{ route('pengguna.edit' , $data->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                                      <a href="{{ route('pengguna.show' , $data->id)}}" class="btn btn-sm btn-warning">Show</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                      </form>
+                                  </td>
+                                </tr>
+                                @endforeach
+                              </tbody>
+                          </table>
+                            <div class="ms-2 mt-3">
+                            <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success">Add</a>
+                            </div>
+                      </div>
+                      <!-- /.table-responsive -->
+                  </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        {{-- Akhir Table --}}
 
   <!--bootstrap js-->
   <script src="assets/js/bootstrap.bundle.min.js"></script>

@@ -20,11 +20,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Route Home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+//Route Pengguna
 Route::get('/pengguna', [PenggunasController::class, 'index'])->name('pengguna.index');
-
+Route::resource('pengguna', PenggunasController::class)->except(['index']);

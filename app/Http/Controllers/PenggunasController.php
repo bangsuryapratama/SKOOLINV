@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PenggunasController extends Controller
 {
@@ -12,16 +14,21 @@ class PenggunasController extends Controller
      */
     public function index()
     {
-    $penggunas = User::all();
-    return view('pengguna.index', compact('penggunas'));
+        $pengguna = User::where('is_admin', 0)->get();
+        Alert::warning('Hapus Petugas!', 'Apakah Anda Yakin?');
+        return view('pengguna.index', compact('pengguna'));
     }
+    
+
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('pengguna.create');
     }
 
     /**
@@ -29,7 +36,33 @@ class PenggunasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+            
+        ]  
+        , [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password minimal 8 karakter',
+            'password.confirmed' => 'Konfirmasi password tidak cocok',
+        ]
+    
+    );
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+
+        ]);
+
+        Alert::success('Berhasil', 'Pengguna berhasil ditambahkan');
+        return redirect()->route('pengguna.index');
     }
 
     /**

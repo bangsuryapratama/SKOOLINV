@@ -72,8 +72,8 @@
                       </div>
                       <div class="col-7 col-stats">
                         <div class="numbers">
-                          <p class="card-category">Data Pengguna</p>
-                          <h4 class="card-title">1,294</h4>
+                          <p class="card-category">Data Petugas</p>
+                          <h4 class="card-title">{{ \App\Models\User::where('email', '!=', 'admin@gmail.com')->count() }} Data</h4>
                         </div>
                       </div>
                     </div>
