@@ -76,6 +76,7 @@
               </span>
               <h4 class="text-section">Lainnya</h4>
               </li>
+              @if (Auth::user()->is_admin === 1)  
               <li class="nav-item {{ request()->routeIs('pengguna.index') ? 'active' : '' }}">
               <a href="{{ route('pengguna.index') }}">
                 <i class="fas fa-address-card"></i>
@@ -83,6 +84,7 @@
                 <span class=""></span>
               </a>
               </li>
+              @endif
               {{-- <li class="nav-item {{ request()->routeIs('barang.index') ? 'active' : '' }}">
               <a href="{{ route('barang.index') }}">
                 <i class="fas fa-box"></i>

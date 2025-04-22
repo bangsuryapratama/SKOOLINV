@@ -30,3 +30,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/pengguna', [PenggunasController::class, 'index'])->name('pengguna.index');
 Route::resource('pengguna', PenggunasController::class);
         
+
+//Route AKSES BLOKIR
+Route::middleware('admin')->group(function () {
+    Route::get('/pengguna', [PenggunasController::class, 'index'])->name('pengguna.index');
+    Route::resource('pengguna', PenggunasController::class);
+});
