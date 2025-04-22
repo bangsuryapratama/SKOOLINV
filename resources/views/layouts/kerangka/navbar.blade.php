@@ -74,7 +74,9 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">{{ explode(' ', Auth::user()->name)[0] }}</span>
+                      <span class="fw-bold">
+                        {{ Auth::check() ? explode(' ', Auth::user()->name)[0] : 'Guest' }}
+                      </span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -89,8 +91,8 @@
                             />
                           </div>
                           <div class="u-text">
-                            <h4>{{ Auth::user()->name }}</h4>
-                            <p class="text-muted">{{ Auth::user()->email }}</p>
+                            <h4>{{ Auth::check() ? Auth::user()->name : 'Guest' }}</h4>
+                            <p class="text-muted">{{ Auth::check() ? Auth::user()->email : 'Unknown' }}</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
@@ -113,7 +115,7 @@
                         Logout</a>        
                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                          @csrf
-                      </li>
+                       </form>
                     </div>
                   </ul>
                 </li>

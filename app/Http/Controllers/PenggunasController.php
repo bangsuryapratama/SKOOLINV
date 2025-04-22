@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -94,6 +95,8 @@ class PenggunasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pengguna = User::FindOrFail($id);
+        $pengguna->delete();
+        return redirect()->route('pengguna.index')->with('success', 'Data berhasl dihapus');
     }
 }

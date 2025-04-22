@@ -81,18 +81,18 @@
                               <tbody>
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
-                                  <td>{{ $data->username }}</td>
+                                  <td>{{ $data->name }}</td>
                                   <td>{{ $data->email }}</td>
           
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('pengguna.destroy' , $data->id) }}" method="post">
-                                      <a href="{{ route('pengguna.edit' , $data->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                                      <a href="{{ route('pengguna.show' , $data->id)}}" class="btn btn-sm btn-warning">Show</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                      </form>
+                                    <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                      <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                      <a href="{{ route('pengguna.show', $data->id) }}" class="btn btn-sm btn-warning">Show</a>
+                                      @csrf
+                                      @method('DELETE')
+                                      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
                                   </td>
                                 </tr>
                                 @endforeach

@@ -28,4 +28,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Route Pengguna
 Route::get('/pengguna', [PenggunasController::class, 'index'])->name('pengguna.index');
-Route::resource('pengguna', PenggunasController::class)->except(['index']);
+Route::resource('pengguna', PenggunasController::class);
+        

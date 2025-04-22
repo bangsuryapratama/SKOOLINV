@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Pengguna extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','username','password','email','created_at','updated_at'];
+    protected $fillable = ['id','name','password','email','created_at','updated_at'];
     public $timestamp = true;
 }
