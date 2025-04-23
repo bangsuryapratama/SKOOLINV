@@ -36,12 +36,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/demo.css') }}" />
 </head>
 <body>
-      <div class="sidebar" data-background-color="light">
+      <div class="sidebar" data-background-color="dark">
         <div class="sidebar-logo">
           <!-- Logo Header -->
-          <div class="logo-header" data-background-color="light">
+          <div class="logo-header" data-background-color="dark">
             <a href="{{ route('welcome') }}" class="text-white navbar-brand d-flex justify-content-center align-items-center" style="padding: 10px;">
-              <img src="{{ asset('assets/images/logop.png') }}" alt="Logo" class="img-fluid" style="max-height: 80px; margin-top: 10px;">
+                <img src="{{ asset('assets/images/logowhite.png') }}" alt="Logo" class="img-fluid" style="max-height: 80px; margin-top: 10px; margin-right: 25px;">
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
@@ -83,6 +83,27 @@
                 <p>Data Petugas</p>
                 <span class=""></span>
               </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-address-card"></i>
+                  <p>Data Barang</p>
+                  <span class=""></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-address-card"></i>
+                  <p>Data Keluar</p>
+                  <span class=""></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-address-card"></i>
+                  <p>Data Masuk</p>
+                  <span class=""></span>
+                </a>
               </li>
               @endif
               {{-- <li class="nav-item {{ request()->routeIs('barang.index') ? 'active' : '' }}">
