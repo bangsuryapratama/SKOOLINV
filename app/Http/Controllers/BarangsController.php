@@ -12,7 +12,7 @@ class BarangsController extends Controller
      */
     public function index()
     {
-       $barangs = DataPusats::all();
+        $barangs = DataPusats::all();
         return view('barang.index', compact('barangs'));
     }
 
@@ -21,7 +21,7 @@ class BarangsController extends Controller
      */
     public function create()
     {
-      return view('barang.create');
+        return view('barang.create');
     }
 
     /**
@@ -33,27 +33,27 @@ class BarangsController extends Controller
             'kode_barang' => 'required',
             'nama' => 'required',
             'merk' => 'required',
-            'foto' => 'required',
-            'stok'  => 'required',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:9999',
+            'stok' => 'required',
         ]);
 
         $barangs = new DataPusats();
-        $barangs->kode_barang =          $request->kode_barang;
-        $barangs->nama =                 $request->nama;
-        $barangs->merk =                 $request->merk;
+        $barangs->kode_barang = $request->kode_barang;
+        $barangs->nama = $request->nama;
+        $barangs->merk = $request->merk;
 
         if ($request->hasFile('foto')) {
             $img = $request->file('foto');
-            $name = rand(1000, 9999) . $img->getClientOriginalName(); // Menggabungkan angka acak dengan nama file
-            $img->move('images/barangs', $name); // Memindahkan file ke folder yang dituju
-            $barangs->foto = $name; // Menyimpan nama file ke properti cover
-        }   
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/barangs', $name);
+            $barangs->foto = $name;
+        }
 
-        $barangs->stok =                 $request->stok;
+        $barangs->stok = $request->stok;
+        $barangs->save();
 
-        return redirect()->route('barang.index')->with('success', 'Data Barang berhasil ditambahkan');
-       
-    }
+    return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Ditambahkan');
+}
 
     /**
      * Display the specified resource.
