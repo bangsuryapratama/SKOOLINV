@@ -50,26 +50,25 @@
             <!-- End Navbar -->
           </div>
 
-
-
                     {{-- Table --}}
                     <div class="container">
                     <div class="page-inner">
                         <div class="page-header">
-                        <h3 class="fw-bold mb-3">Tambahkan Data Petugas</h3>
+                        <h3 class="fw-bold mb-3">Edit Data Pengguna</h3>
                         </div>
                         <div class="row">
                         <div class="col-12">
                             <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title" style="color: #000">Tambah Data Petugas</h4>
+                        <h4 class="card-title" style="color: #000">Edit Data Pengguna</h4>
 
-                        <form action="{{ route('pengguna.store') }}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        <form action="{{ route('pengguna.update' , $pengguna->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="exampleInputName1">Nama Petugas</label>
                                 <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" placeholder="Nama Lengkap Petugas" id="putih"
+                                    value="{{ $pengguna->name }}" placeholder="Nama Lengkap Petugas" id="putih"
                                     style="color: #000; background-color: #f5f5f5;">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -80,7 +79,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Email</label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" placeholder="Masukan Email" id="putih"
+                                    value="{{ $pengguna->email }}" placeholder="Masukan Email" id="putih"
                                     style="color: #000; background-color: #f5f5f5;">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -91,7 +90,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Password</label>
                                 <input type="text" class="form-control @error('password') is-invalid @enderror" name="password"
-                                    placeholder="Massukan Password" id="putih" style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $pengguna->password }}" placeholder="Massukan Password" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -101,7 +100,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Konfirmasi Password</label>
                                 <input type="text" class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="Masukan Konfirmasi Password" name="password_confirmation" id="putih"
+                                value="{{ $pengguna->password }}"  placeholder="Masukan Konfirmasi Password" name="password_confirmation" id="putih"
                                     style="color: #000; background-color: #f5f5f5;">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -130,23 +129,7 @@
   <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
   <script src="assets/plugins/metismenu/metisMenu.min.js"></script>
   <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#example').DataTable();
-		  } );
-	</script>
-	<script>
-		$(document).ready(function() {
-			var table = $('#example2').DataTable( {
-				lengthChange: false,
-				buttons: [ 'copy', 'excel', 'pdf', 'print']
-			} );
-		 
-			table.buttons().container()
-				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
-		} );
-	</script>
+  <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
   <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
   <script src="assets/js/main.js"></script>
 

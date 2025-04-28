@@ -39,9 +39,9 @@
       <div class="sidebar" data-background-color="dark">
         <div class="sidebar-logo">
           <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
+          <div class="logo-header" data-background-color="light-theme">
             <a href="{{ route('welcome') }}" class="text-white navbar-brand d-flex justify-content-center align-items-center" style="padding: 10px;">
-                <img src="{{ asset('assets/images/logowhite.png') }}" alt="Logo" class="img-fluid" style="max-height: 80px; margin-top: 10px; margin-right: 25px;">
+                <img src="{{ asset('assets/images/logowhite.png') }}" alt="Logo" class="img-fluid" style="max-height: 55px; margin-top: 10px; margin-right: 25px;">
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
@@ -84,27 +84,43 @@
                 <span class=""></span>
               </a>
               </li>
-              <li class="nav-item">
-                <a href="#">
-                  <i class="fas fa-address-card"></i>
+              <li class="nav-item {{ request()->routeIs('barang.index') ? 'active' : '' }}">
+                <a href="{{ route('barang.index') }}">
+                  <i class="fas fa-dolly-flatbed"></i>
                   <p>Data Barang</p>
                   <span class=""></span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#">
-                  <i class="fas fa-address-card"></i>
-                  <p>Data Keluar</p>
+              <li class="nav-item {{ request()->routeIs('barangkeluar.index') ? 'active' : '' }}">
+                <a href="{{ route('barangkeluar.index') }}">
+                  <i class="fas fa-arrow-circle-left"></i>
+                  <p>Data Barang Keluar</p>
                   <span class=""></span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#">
-                  <i class="fas fa-address-card"></i>
-                  <p>Data Masuk</p>
+              <li class="nav-item {{ request()->routeIs('barangmasuk.index') ? 'active' : '' }}">
+                <a href="{{ route('barangmasuk.index') }}">
+                  <i class="fas fa-arrow-circle-right"></i>
+                  <p>Data Barang Masuk</p>
                   <span class=""></span>
                 </a>
               </li>
+              <li class="nav-item {{ request()->routeIs('peminjaman.index') ? 'active' : '' }}">
+                <a href="{{ route('peminjaman.index') }}">
+                  <i class="fas fa-hand-holding"></i>
+                   <p>Data Peminjaman</p>
+                   <span class=""></span>
+                  </i>
+                </a>
+              </li> 
+              <li class="nav-item {{ request()->routeIs('pengembalian.index') ? 'active' : '' }}">
+                <a href="{{ route('pengembalian.index') }}">
+                  <i class="fas fa-clipboard-check"></i>
+                   <p>Data Pengembalian</p>
+                   <span class=""></span>
+                  </i>
+                </a>
+              </li> 
               @endif
               {{-- <li class="nav-item {{ request()->routeIs('barang.index') ? 'active' : '' }}">
               <a href="{{ route('barang.index') }}">

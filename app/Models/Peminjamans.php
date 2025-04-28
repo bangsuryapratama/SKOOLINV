@@ -13,7 +13,7 @@ class Peminjamans extends Model
 
     public function barang()
     {
-        return $this->belongsTo(DataPusat::class, 'id_barang', 'id');
+        return $this->belongsTo(DataPusats::class, 'id_barang', 'id');
     }
     
     public function pengembalian()

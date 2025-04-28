@@ -82,18 +82,18 @@
               </div>
 
               <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-info card-round">
+                <div class="card card-stats card-success card-round">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-5">
                         <div class="icon-big text-center">
-                          <i class="fas fa-user-check"></i>
+                          <i class="fas fas fa-dolly"></i>
                         </div>
                       </div>
                       <div class="col-7 col-stats">
                         <div class="numbers">
-                          <p class="card-category">Subscribers</p>
-                          <h4 class="card-title">1303</h4>
+                          <p class="card-category">Data Barang</p>
+                            <h4 class="card-title">{{ \App\Models\DataPusats::count() }} Data</h4>
                         </div>
                       </div>
                     </div>
@@ -102,18 +102,18 @@
               </div>
 
               <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-success card-round">
+                <div class="card card-stats card-warning card-round">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-5">
                         <div class="icon-big text-center">
-                          <i class="fas fa-chart-pie"></i>
+                          <i class="fas fa-long-arrow-alt-up"></i>
                         </div>
                       </div>
                       <div class="col-7 col-stats">
                         <div class="numbers">
-                          <p class="card-category">Sales</p>
-                          <h4 class="card-title">$ 1,345</h4>
+                          <p class="card-category">Keluar</p>
+                          <h4 class="card-title">{{ \App\Models\BarangKeluar::count() }} Data</h4>
                         </div>
                       </div>
                     </div>
@@ -127,13 +127,13 @@
                     <div class="row">
                       <div class="col-5">
                         <div class="icon-big text-center">
-                          <i class="far fa-check-circle"></i>
+                          <i class="fas fa-long-arrow-alt-down"></i>
                         </div>
                       </div>
                       <div class="col-7 col-stats">
                         <div class="numbers">
-                          <p class="card-category">Order</p>
-                          <h4 class="card-title">576</h4>
+                          <p class="card-category">Masuk</p>
+                          <h4 class="card-title">{{ \App\Models\BarangMasuks::count() }} Data</h4>
                         </div>
                       </div>
                     </div>

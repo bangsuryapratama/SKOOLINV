@@ -55,15 +55,17 @@ class PenggunasController extends Controller
     
     );
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $pengguna = new User();
+        $pengguna->name = $request->name;
+        $pengguna->email = $request->email;
+        $pengguna->password = Hash::make($request->password);
+        $pengguna->is_admin = 0; // Set is_admin ke 0 untuk pengguna biasa
+        
+        $pengguna->save();
 
-        ]);
 
-        Alert::success('Berhasil', 'Pengguna berhasil ditambahkan');
-        return redirect()->route('pengguna.index');
+        return redirect()->route('pengguna.index')->with('success', 'Data berhasil ditambahkan!');
+
     }
 
     /**
@@ -79,7 +81,8 @@ class PenggunasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pengguna = User::findOrFail($id);
+        return view('pengguna.edit', compact('pengguna'));
     }
 
     /**
@@ -87,7 +90,30 @@ class PenggunasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:8|confirmed',
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'password.min' => 'Password minimal 8 karakter',
+            'password.confirmed' => 'Konfirmasi password tidak cocok',
+        ]);
+
+        $pengguna = User::findOrFail($id);
+        $pengguna->name = $request->name;
+        $pengguna->email = $request->email;
+
+        if ($request->filled('password')) {
+            $pengguna->password = Hash::make($request->password);
+        }
+
+        $pengguna->save();
+
+        return redirect()->route('pengguna.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -95,8 +121,12 @@ class PenggunasController extends Controller
      */
     public function destroy(string $id)
     {
-        $pengguna = User::FindOrFail($id);
+        $pengguna = User::findOrFail($id);
+
+        // Menghapus data pengguna
         $pengguna->delete();
-        return redirect()->route('pengguna.index')->with('success', 'Data berhasl dihapus');
+    
+        // Redirect kembali dengan session sukses
+        return redirect()->route('pengguna.index')->with('success', 'Data berhasil dihapus');
     }
 }

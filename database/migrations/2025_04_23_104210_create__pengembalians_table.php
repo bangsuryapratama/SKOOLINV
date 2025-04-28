@@ -18,9 +18,9 @@ return new class extends Migration
             $table->date('tglkembali');
             $table->string('nama_peminjam');
             $table->string('status')->default('kembali');
-            $table->foreignId('id_barang')->constrained('DataPusats', 'id')->onDelete('cascade');
+            $table->foreignId('id_barang')->constrained('Data_Pusats', 'id')->onDelete('cascade');
             $table->foreignId('id_peminjaman')->constrained('Peminjamans', 'id')->onDelete('cascade');
-            $table->foreignId('id_barang_keluar')->constrained('BarangKeluars', 'id')->onDelete('cascade');
+            $table->foreignId('id_barang_keluar')->constrained('Barang_Keluars', 'id')->onDelete('cascade');
             $table->timestamps();
         });
     }

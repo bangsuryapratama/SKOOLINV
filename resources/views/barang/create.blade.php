@@ -56,61 +56,65 @@
                     <div class="container">
                     <div class="page-inner">
                         <div class="page-header">
-                        <h3 class="fw-bold mb-3">Tambahkan Data Petugas</h3>
+                        <h3 class="fw-bold mb-3">Tambahkan Data Barang</h3>
                         </div>
                         <div class="row">
                         <div class="col-12">
                             <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title" style="color: #000">Tambah Data Petugas</h4>
+                        <h4 class="card-title" style="color: #000">Tambah Data Barang</h4>
 
-                        <form action="{{ route('pengguna.store') }}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data" class="forms-sample">
                             @csrf
+                        
                             <div class="form-group">
-                                <label for="exampleInputName1">Nama Petugas</label>
-                                <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" placeholder="Nama Lengkap Petugas" id="putih"
+                                <label for="exampleInputEmail3">Nama Barang</label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                    value="{{ old('nama') }}" placeholder="Masukan Nama Barang" id="nama"
                                     style="color: #000; background-color: #f5f5f5;">
-                                @error('name')
+                                @error('nama')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Email</label>
-                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" placeholder="Masukan Email" id="putih"
+                                <label for="exampleInputEmail3">Merk</label>
+                                <input type="text" class="form-control @error('merk') is-invalid @enderror" name="merk"
+                                    value="{{ old('merk') }}" placeholder="Masukan Merk" id="merk"
                                     style="color: #000; background-color: #f5f5f5;">
-                                @error('email')
+                                @error('merk')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">Password</label>
-                                <input type="text" class="form-control @error('password') is-invalid @enderror" name="password"
-                                    placeholder="Massukan Password" id="putih" style="color: #000; background-color: #f5f5f5;">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+
+                            <div class="mb-3 ms-2">
+                                <label for="foto" class="form-label">Foto</label>
+                                <input type="file" class="form-control  @error('foto') is-invalid @enderror" id="foto" name="foto" placeholder="Masukkan Foto" required>
+                                @error('foto')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Konfirmasi Password</label>
-                                <input type="text" class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="Masukan Konfirmasi Password" name="password_confirmation" id="putih"
+                                <label for="exampleInputEmail3">Stock</label>
+                                <input type="number" class="form-control @error('stok') is-invalid @enderror" name="stok"
+                                    value="{{ old('stok') }}" placeholder="Masukan Jumlah Stok" id="stok"
                                     style="color: #000; background-color: #f5f5f5;">
-                                @error('password')
+                                @error('stok')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
                             <button type="submit" class="btn btn-primary ms-1 mt-3">Simpan</button>
-                            <a href="{{ route('pengguna.index') }}" class="btn btn-dark mt-3">Kembali</a>
+                            <a href="{{ route('barang.index') }}" class="btn btn-dark mt-3">Kembali</a>
                         </form>
                     </div>
                   </div>

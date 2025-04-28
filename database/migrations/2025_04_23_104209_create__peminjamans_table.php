@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tglkembali')->nullable();
             $table->string('nama_peminjam');
             $table->string('status')->default('pinjam');
-            $table->foreignId('id_barang')->constrained('DataPusats', 'id')->onDelete('cascade');
+            $table->foreignId('id_barang')->constrained('Data_Pusats', 'id')->onDelete('cascade');
             $table->timestamps();
         });
     }

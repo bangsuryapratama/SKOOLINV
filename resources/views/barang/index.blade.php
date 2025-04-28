@@ -9,9 +9,6 @@
   <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
   <!-- loader-->
   <link href="assets/css/pace.min.css" rel="stylesheet">
-  <!-- SweetAlert2 CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   <script src="assets/js/pace.min.js"></script>
 
   <!--plugins-->
@@ -59,26 +56,14 @@
         <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Halaman Data Petugas</h3>
+              <h3 class="fw-bold mb-3">Halaman Data Barang</h3>
             </div>
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Data Petugas</div>
+                    <div class="card-title">Data Barang</div>
                   </div>
-                @if (session('success'))
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: '{{ session('success') }}',
-                        showConfirmButton: true, // Menghilangkan tombol "OK"
-                        timer: 3000 // alert hilang otomatis setelah 3 detik
-                    });
-                 </script>
-                 @endif
-
                   <div class="card-body">
                     <div class="panel-body">
                       <div class="table-responsive">
@@ -86,23 +71,31 @@
                               <thead>
                                   <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Kode Barang</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Merk</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Stock</th>
                                     <th scope="col" class="text-center">Action</th>
                                   </tr>
                               </thead>
                               @php $no = 1; @endphp
-                              @foreach ($pengguna as $data)
+                              @foreach ($barangs as $data)
                               <tbody>
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
-                                  <td>{{ $data->name }}</td>
-                                  <td>{{ $data->email }}</td>
+                                  <td>{{ $data->kode_barang }}</td>
+                                  <td>{{ $data->nama }}</td>
+                                  <td>{{ $data->merk }}</td>
+                                  <td> 
+                                    <img src="{{ asset('/images/barang/' . $data->foto) }}" width="70" alt="">
+                                  </td>  
+                                  <td>{{ $data->stok }}</td>
           
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                      <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                      <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -113,7 +106,7 @@
                               </tbody>
                           </table>
                             <div class="ms-2 mt-3">
-                            <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success">Add</a>
+                            <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success">Add</a>
                             </div>
                       </div>
                       <!-- /.table-responsive -->
@@ -135,6 +128,22 @@
   <script src="assets/plugins/metismenu/metisMenu.min.js"></script>
   <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
 	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+	<script>
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
   <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
   <script src="assets/js/main.js"></script>
 
