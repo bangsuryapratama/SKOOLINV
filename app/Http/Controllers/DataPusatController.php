@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataPusats;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class BarangsController extends Controller
+class DataPusatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +14,7 @@ class BarangsController extends Controller
     public function index()
     {
         $barangs = DataPusats::all();
+        Alert::warning('Hapus Data!', 'Apakah Anda Yakin?');
         return view('barang.index', compact('barangs'));
     }
 
@@ -33,14 +35,17 @@ class BarangsController extends Controller
             'kode_barang' => 'required',
             'nama' => 'required',
             'merk' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:9999',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,webp|max:9999',
             'stok' => 'required',
         ]);
 
+
         $barangs = new DataPusats();
+
         $barangs->kode_barang = $request->kode_barang;
         $barangs->nama = $request->nama;
         $barangs->merk = $request->merk;
+        
 
         if ($request->hasFile('foto')) {
             $img = $request->file('foto');
@@ -51,6 +56,7 @@ class BarangsController extends Controller
 
         $barangs->stok = $request->stok;
         $barangs->save();
+        Alert::success('Berhasil!', 'Data Barang Berhasil Ditambahkan');
 
     return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Ditambahkan');
 }
@@ -68,7 +74,8 @@ class BarangsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barangs = DataPusats::FindOrFail($id);
+        return view('barang.edit' , compact('barangs'));
     }
 
     /**
@@ -76,14 +83,43 @@ class BarangsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'kode_barang' => 'required',
+            'nama' => 'required',
+            'merk' => 'required',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,webp|max:9999',
+            'stok' => 'required',
+        ]);
+
+
+        $barangs = DataPusats::findorfail($id);
+
+        $barangs->kode_barang = $request->kode_barang;
+        $barangs->nama = $request->nama;
+        $barangs->merk = $request->merk;
+        
+
+        if ($request->hasFile('foto')) {
+            $img = $request->file('foto');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/barangs', $name);
+            $barangs->foto = $name;
+        }
+
+        $barangs->stok = $request->stok;
+        $barangs->save();
+        Alert::success('Berhasil!', 'Data Barang Berhasil Ditambahkan');
+
+    return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil DiUpdate!!');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $barangs = DataPusats::findOrFail($id);
+        $barangs->delete();
+        return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Dihapus');
     }
 }

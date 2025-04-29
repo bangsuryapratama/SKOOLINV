@@ -11,6 +11,9 @@
   <link href="assets/css/pace.min.css" rel="stylesheet">
   <script src="assets/js/pace.min.js"></script>
 
+   <!-- SweetAlert2 CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!--plugins-->
   <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/metisMenu.min.css">
@@ -64,9 +67,20 @@
                   <div class="card-header">
                     <div class="card-title">Data Barang</div>
                   </div>
+                  @if (session('success'))
+                  <script>
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Berhasil!',
+                          text: '{{ session('success') }}',
+                          showConfirmButton: true, // Menghilangkan tombol "OK"
+                          timer: 3000 // alert hilang otomatis setelah 3 detik
+                      });
+                   </script>
+                   @endif       
                   <div class="card-body">
                     <div class="panel-body">
-                      <div class="table-responsive">
+                      <div class="table-responsive"> 
                           <table class="table">
                               <thead>
                                   <tr>
@@ -88,7 +102,7 @@
                                   <td>{{ $data->nama }}</td>
                                   <td>{{ $data->merk }}</td>
                                   <td> 
-                                    <img src="{{ asset('/images/barang/' . $data->foto) }}" width="70" alt="">
+                                    <img src="{{ asset('/images/barangs/' . $data->foto) }}" width="70" alt="">
                                   </td>  
                                   <td>{{ $data->stok }}</td>
           

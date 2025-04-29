@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('kode_barang')->unique();
             $table->string('nama');
             $table->string('merk');
-            $table->string('foto')->nullable();
-            $table->integer('stok')->default(0);   
+            $table->string('foto');
+            $table->integer('stok');
             $table->timestamps();
         });
     }

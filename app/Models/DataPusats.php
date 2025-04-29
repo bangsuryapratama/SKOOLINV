@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BarangMasuks;
+use App\Models\BarangKeluar;
+use App\Models\Peminjamans;
 use Illuminate\Support\Str;
 
 class DataPusats extends Model
@@ -27,14 +30,6 @@ class DataPusats extends Model
         return $this->hasMany(Peminjamans::class, 'id_barang', 'id');
     }
 
-    //kode barang otomatis
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->kode_barang = 'BRG' .  strtoupper(Str::random(5)); ;
-        });
-    }
+ 
 
 }

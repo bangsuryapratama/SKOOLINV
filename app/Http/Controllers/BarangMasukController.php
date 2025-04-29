@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BarangMasuks;
+use Illuminate\Http\Request;
 
-class BarangMasuController extends Controller
+class BarangMasukController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Display a listing of the resource
-        $barangMasuks = BarangMasuks::all();
-        return view('barangmasuk.index', compact('barangMasuks'));
+        $barangmasuk = BarangMasuks::all();
+        return view('barang.index', compact('barangmasuk'));
     }
 
     /**
