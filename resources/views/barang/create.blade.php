@@ -65,7 +65,7 @@
                             @csrf
 
                           
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="exampleInputEmail3">Kode Barang</label>
                                 <input type="text" class="form-control @error('kode_barang') is-invalid @enderror" name="kode_barang"
                                     value="{{ old('kode_barang') }}" placeholder="Masukan Kode Barang" id="nama"
@@ -75,7 +75,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                         
                             <div class="form-group">

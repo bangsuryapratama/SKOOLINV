@@ -91,17 +91,17 @@
                   <span class=""></span>
                 </a>
               </li>
-              <li class="nav-item {{ request()->routeIs('barangkeluar.index') ? 'active' : '' }}">
-                <a href="{{ route('barangkeluar.index') }}">
-                  <i class="fas fa-arrow-circle-left"></i>
-                  <p>Data Barang Keluar</p>
-                  <span class=""></span>
-                </a>
-              </li>
               <li class="nav-item {{ request()->routeIs('barangmasuk.index') ? 'active' : '' }}">
                 <a href="{{ route('barangmasuk.index') }}">
                   <i class="fas fa-arrow-circle-right"></i>
                   <p>Data Barang Masuk</p>
+                  <span class=""></span>
+                </a>
+              </li>
+              <li class="nav-item {{ request()->routeIs('barangkeluar.index') ? 'active' : '' }}">
+                <a href="{{ route('barangkeluar.index') }}">
+                  <i class="fas fa-arrow-circle-left"></i>
+                  <p>Data Barang Keluar</p>
                   <span class=""></span>
                 </a>
               </li>
