@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BarangKeluar;
+use App\Models\DataPusats;
+use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BarangKeluarController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.   
      */
     public function index()
     {
         // Display a listing of the resource
-        $barangKeluar = BarangKeluar::all();
-        return view('barangkeluar.index', compact('barangKeluar'));
+        $barangkeluar = BarangKeluar::all();
+        return view('barangkeluar.index', compact('barangkeluar'));
     }
 
     /**
@@ -22,7 +25,8 @@ class BarangKeluarController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = DataPusats::all();
+        return view('barangkeluar.create', compact('barangs'));
     }
 
     /**
@@ -30,7 +34,42 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jumlah' => 'required',
+            'tglkeluar' => 'required',
+            'ket' => 'required',
+            'id_barang' => 'required',
+        ], [
+            'jumlah.required' => 'Jumlah Harus Diisi',
+            'tglkeluar.required' => 'Tanggal Keluar Harus Diisi',
+            'ket.required' => 'Keterangan Harus Diisi',
+            'id_barang.required' => 'Barang Harus Diisi',
+        ]);
+
+        $barangkeluar = new BarangKeluar();
+
+        $lastRecord = BarangKeluar::latest('id')->first();
+        $lastId = $lastRecord ? $lastRecord->id : 0;
+        $kodeBarang = 'KLR-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+
+        $barangkeluar->kode_barang = $kodeBarang;
+        $barangkeluar->jumlah = $request->jumlah;
+        $barangkeluar->tgl_keluar = $request->tglkeluar;
+        $barangkeluar->ket = $request->ket;
+        $barangkeluar->id_barang = $request->id_barang;
+
+        $pusat = DataPusats::findOrFail($request->id_barang);
+        if ($pusat->stok < $request->jumlah) {
+            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
+            return redirect()->route('barangkeluar.index');
+        } else {
+            $pusat->stok -= $request->jumlah;
+            $pusat->save();
+        }
+
+        $barangkeluar->save();
+        Alert::success('success', 'Data Berhasil Ditambahkan')->autoClose(1500);
+        return redirect()->route('barangkeluar.index');
     }
 
     /**
@@ -62,6 +101,10 @@ class BarangKeluarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $barangkeluar->delete();
+
+        Alert::success('Berhasil!', 'Data Barang Keluar Berhasil Dihapus');
+        return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Dihapus');
     }
 }

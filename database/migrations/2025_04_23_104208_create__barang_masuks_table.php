@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('tglmasuk');
             $table->string('ket')->nullable();
             $table->foreignId('id_barang')->constrained('Data_Pusats', 'id')->onDelete('cascade');
-            $table->string('status')->default('masuk');
             $table->timestamps();
         });
     }

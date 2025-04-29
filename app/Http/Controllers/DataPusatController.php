@@ -130,13 +130,13 @@ class DataPusatController extends Controller
         if ($request->hasFile('foto')) {
  
             $fotoLama = $barangs->foto;
-            if ($fotoLama && file_exists(public_path('images/barangs' . $fotoLama))) {
-                unlink(public_path('images/barangs' . $fotoLama));
+            if ($fotoLama && file_exists(public_path('images/foto/barangs/' . $fotoLama))) {
+                unlink(public_path('images/foto/barangs/' . $fotoLama));
             }
 
             $img = $request->file('foto');
             $name = rand(1000, 9999) . $img->getClientOriginalName();
-            $img->move(public_path('images/foto/datapusat'), $name);
+            $img->move(public_path('images/foto/barangs'), $name);
             $barangs->foto = $name;
 
         }

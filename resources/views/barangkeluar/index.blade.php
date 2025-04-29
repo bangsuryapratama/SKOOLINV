@@ -72,39 +72,39 @@
                                   <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Kode Barang</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Merk</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Stock</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Tanggal Keluar</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">ID_BARANG</th>
                                     <th scope="col" class="text-center">Action</th>
                                   </tr>
                               </thead>
-                              {{-- @php $no = 1; @endphp
-                              @foreach ($barangs as $data)
+                              @php $no = 1; @endphp
+                              @foreach ($barangkeluar as $data)
                               <tbody>
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
                                   <td>{{ $data->kode_barang }}</td>
-                                  <td>{{ $data->nama }}</td>
-                                  <td>{{ $data->merk }}</td>
-                                
-                                  <td>{{ $data->stock }}</td>
-          
+                                  <td>{{ $data->jumlah }}</td>
+                                  <td>{{ $data->tglkeluar }}</td>
+                                  <td>{{ $data->ket }}</td>
+                                  <td>{{ $data->barang->nama }}</td>
+
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                      <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('barangkeluar.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                      <a href="{{ route('barangkeluar.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     </form>
                                   </td>
                                 </tr>
-                                @endforeach --}}
+                                @endforeach
                               </tbody>
                           </table>
                             <div class="ms-2 mt-3">
-                            <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success">Add</a>
+                            <a href="{{ route('barangkeluar.create') }}" class="btn btn-sm btn-success">Add</a>
                             </div>
                       </div>
                       <!-- /.table-responsive -->

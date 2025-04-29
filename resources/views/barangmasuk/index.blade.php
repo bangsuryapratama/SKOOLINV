@@ -7,9 +7,14 @@
     
   <!--favicon-->
   <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
+
   <!-- loader-->
   <link href="assets/css/pace.min.css" rel="stylesheet">
   <script src="assets/js/pace.min.js"></script>
+
+  
+   <!-- SweetAlert2 CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!--plugins-->
   <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
@@ -64,6 +69,17 @@
                   <div class="card-header">
                     <div class="card-title">Data Barang Masuk</div>
                   </div>
+                  @if (session('success'))
+                  <script>
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Berhasil!',
+                          text: '{{ session('success') }}',
+                          showConfirmButton: true, // Menghilangkan tombol "OK"
+                          timer: 3000 // alert hilang otomatis setelah 3 detik
+                      });
+                   </script>
+                   @endif       
                   <div class="card-body">
                     <div class="panel-body">
                       <div class="table-responsive">
@@ -72,39 +88,39 @@
                                   <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Kode Barang</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Merk</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Stock</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Tanggal Masuk</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">ID_BARANG</th>
                                     <th scope="col" class="text-center">Action</th>
                                   </tr>
                               </thead>
-                              {{-- @php $no = 1; @endphp
-                              @foreach ($barangs as $data)
+                              @php $no = 1; @endphp
+                              @foreach ($barangmasuk as $data)
                               <tbody>
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
                                   <td>{{ $data->kode_barang }}</td>
-                                  <td>{{ $data->nama }}</td>
-                                  <td>{{ $data->merk }}</td>
-                                
-                                  <td>{{ $data->stock }}</td>
-          
+                                  <td>{{ $data->jumlah }}</td>
+                                  <td>{{ $data->tglmasuk }}</td>
+                                  <td>{{ $data->ket }}</td>
+                                  <td>{{ $data->barang->nama }}</td>
+
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                      <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('barangmasuk.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                      <a href="{{ route('barangmasuk.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     </form>
                                   </td>
                                 </tr>
-                                @endforeach --}}
+                                @endforeach
                               </tbody>
                           </table>
                             <div class="ms-2 mt-3">
-                            <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success">Add</a>
+                            <a href="{{ route('barangmasuk.create') }}" class="btn btn-sm btn-success">Add</a>
                             </div>
                       </div>
                       <!-- /.table-responsive -->
