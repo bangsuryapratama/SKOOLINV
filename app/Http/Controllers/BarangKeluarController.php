@@ -34,27 +34,39 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'jumlah' => 'required',
-            'tglkeluar' => 'required',
-            'ket' => 'required',
-            'id_barang' => 'required',
-        ], [
-            'jumlah.required' => 'Jumlah Harus Diisi',
-            'tglkeluar.required' => 'Tanggal Keluar Harus Diisi',
-            'ket.required' => 'Keterangan Harus Diisi',
-            'id_barang.required' => 'Barang Harus Diisi',
+       
+        $barangkeluar = new BarangKeluar();
+
+      
+       $request->validate([
+            'jumlah' => 'required|integer',
+            'tglkeluar' => 'required|date',
+            'ket' => 'nullable|string',
+            'id_barang' => 'required|exists:Data_Pusats,id',
+        ],
+        [
+            'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.integer' => 'Jumlah harus berupa angka',
+            'tglkeluar.required' => 'Tanggal masuk tidak boleh kosong',
+            'tglkeluar.date' => 'Format tanggal tidak valid',
+            'ket.string' => 'Keterangan harus berupa teks',
+            'id_barang.required' => 'ID Barang tidak boleh kosong',
+            'id_barang.exists' => 'ID Barang tidak ditemukan',
         ]);
 
         $barangkeluar = new BarangKeluar();
-
         $lastRecord = BarangKeluar::latest('id')->first();
         $lastId = $lastRecord ? $lastRecord->id : 0;
         $kodeBarang = 'KLR-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
-
         $barangkeluar->kode_barang = $kodeBarang;
+
+        $dataPusat = DataPusats::find($request->id_barang);
+        $dataPusat->stok += $barangkeluar->jumlah;
+        $dataPusat->save();
+        
+
         $barangkeluar->jumlah = $request->jumlah;
-        $barangkeluar->tgl_keluar = $request->tglkeluar;
+        $barangkeluar->tglkeluar = $request->tglkeluar;
         $barangkeluar->ket = $request->ket;
         $barangkeluar->id_barang = $request->id_barang;
 
@@ -85,7 +97,9 @@ class BarangKeluarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $barangs = DataPusats::all();
+        return view('barangkeluar.edit', compact('barangkeluar', 'barangs'));
     }
 
     /**
@@ -93,7 +107,38 @@ class BarangKeluarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'jumlah' => 'required|integer',
+            'tglkeluar' => 'required|date',
+            'ket' => 'nullable|string',
+            'id_barang' => 'required|exists:Data_Pusats,id',
+        ],
+        [
+            'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.integer' => 'Jumlah harus berupa angka',
+            'tglkeluar.required' => 'Tanggal masuk tidak boleh kosong',
+            'tglkeluar.date' => 'Format tanggal tidak valid',
+            'ket.string' => 'Keterangan harus berupa teks',
+            'id_barang.required' => 'ID Barang tidak boleh kosong',
+            'id_barang.exists' => 'ID Barang tidak ditemukan',
+        ]);
+
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $dataPusat = DataPusats::find($barangkeluar->id_barang);
+        $dataPusat->stok += $barangkeluar->jumlah;
+        $dataPusat->stok -= $request->jumlah;
+        
+        $dataPusat->save();
+
+        $barangkeluar->jumlah = $request->jumlah;
+        $barangkeluar->tglkeluar = $request->tglkeluar;
+        $barangkeluar->ket = $request->ket;
+        $barangkeluar->id_barang = $request->id_barang;
+
+        $barangkeluar->save();
+
+        Alert::success('Berhasil!', 'Barang Masuk berhasil diperbarui');
+        return redirect()->route('barangkeluar.index')->with('success', 'Barang Masuk berhasil diperbarui');
     }
 
     /**

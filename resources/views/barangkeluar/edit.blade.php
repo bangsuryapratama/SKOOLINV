@@ -50,41 +50,28 @@
             <!-- End Navbar -->
           </div>
 
-
-
                     {{-- Table --}}
                     <div class="container">
                     <div class="page-inner">
                         <div class="page-header">
-                        <h3 class="fw-bold mb-3">Menambahkan Data Barang Keluar</h3>
+                        <h3 class="fw-bold mb-3">Edit Data Barang Keluar</h3>
                         </div>
                         <div class="row">
                         <div class="col-12">
                             <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title" style="color: #000" >Data Barang Keluar</h4>
+                        <h4 class="card-title" style="color: #000">Edit Data Barang</h4>
 
-                        <form action="{{ route('barangkeluar.store') }}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        <form action="{{ route('barangkeluar.update' , $barangkeluar->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
                             @csrf
+                            @method('PUT')
 
                             
-                            
-                            {{-- <div class="form-group">
-                                <label for="exampleInputName1">kode_barang</label>
-                                <input type="text" class="form-control  @error('kode_barang') is-invalid @enderror" name="kode_barang"
-                                    value="{{ old('kode_barang') }}" placeholder="Kode Barang.." id="putih"
-                                    style="color: #000; background-color: #f5f5f5;">
-                                @error('kode_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
 
                             <div class="form-group">
-                                <label for="exampleInputName1">Jumlah</label>
-                                <input type="number" class="form-control  @error('jumlah') is-invalid @enderror" name="jumlah"
-                                    value="{{ old('jumlah') }}" placeholder="Jumlah.." id="putih"
+                                <label for="exampleInputEmail3">Jumlah</label>
+                                <input type="number" class="form-control @error('jumlah') is-invalid @enderror" name="jumlah"
+                                    value="{{ $barangkeluar->jumlah }}" placeholder="Masukan Jumlah Barang" id="putih"
                                     style="color: #000; background-color: #f5f5f5;">
                                 @error('jumlah')
                                     <span class="invalid-feedback" role="alert">
@@ -94,21 +81,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Tanggal Keluar</label>
+                                <label for="exampleInputEmail3">Tanggal Masuk</label>
                                 <input type="date" class="form-control @error('tglkeluar') is-invalid @enderror" name="tglkeluar"
-                                    value="{{ old('tglkeluar') }}" placeholder="Tanggal Masuk" id="Tgl Masuk"
-                                    style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $barangkeluar->tglkeluar }}" placeholder="Masukan Tanggal" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('tglkeluar')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                           </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Keterangan</label>
                                 <input type="text" class="form-control @error('ket') is-invalid @enderror" name="ket"
-                                    placeholder="Masukan Keterangan" id="putih" style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $barangkeluar->ket }}" placeholder="Masukan Keterangan" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('ket')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -121,19 +107,14 @@
                                 <select name="id_barang" id="id_barang" style="color: #000; background-color: #f5f5f5"; class="form-control @error('id_barang') is-invalid @enderror">
                                     <option value="" disabled selected>Pilih Barang</option>
                                     @foreach ($barangs as $data)
-                                  
-                                        <option value="{{ $data->id }}">{{ $data->nama}}
-                                    
-                                    @endforeach
+                                     <option value="{{ $data->id }}" {{ $barangkeluar->id_barang == $data->id ? 'selected' : '' }}>{{ $data->nama }}</option>
+                                   @endforeach
                                 </select>
-                                @error('id_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+
+
+
                             <button type="submit" class="btn btn-primary ms-1 mt-3">Simpan</button>
-                            <a href="{{ route('barangmasuk.index') }}" class="btn btn-dark mt-3">Kembali</a>
+                            <a href="{{ route('barangkeluar.index') }}" class="btn btn-dark mt-3">Kembali</a>
                         </form>
                     </div>
                   </div>

@@ -122,7 +122,7 @@
                         <div class="col-8 col-stats">
                           <div class="numbers">
                             <p class="card-category">Barang Keluar</p>
-                            <h4 class="card-title">{{ \App\Models\BarangKeluar::count() }} Data</h4>
+                            <h4 class="card-title">{{ number_format(\App\Models\BarangKeluar::sum('jumlah')) }} Data</h4>
                           </div>
                         </div>
                       </div>
