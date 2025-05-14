@@ -63,6 +63,7 @@ class BarangMasukController extends Controller
         $barangmasuk->ket = $request->ket;
         $barangmasuk->id_barang = $request->id_barang;
 
+
         $barangmasuk->save();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Barang Masuk berhasil ditambahkan');

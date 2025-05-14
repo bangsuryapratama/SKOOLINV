@@ -135,6 +135,19 @@ class BarangKeluarController extends Controller
         $barangkeluar->ket = $request->ket;
         $barangkeluar->id_barang = $request->id_barang;
 
+
+
+             $pusat = DataPusats::findOrFail($request->id_barang);
+        if ($pusat->stok < $request->jumlah) {
+            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
+            return redirect()->route('barangkeluar.index');
+        } else {
+            $pusat->stok -= $request->jumlah;
+            $pusat->save();
+        }
+
+        
+
         $barangkeluar->save();
 
         Alert::success('Berhasil!', 'Barang Masuk berhasil diperbarui');

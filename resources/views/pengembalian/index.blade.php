@@ -59,13 +59,13 @@
         <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Halaman Data Peminjam</h3>
+              <h3 class="fw-bold mb-3">Halaman Data Pengembalian</h3>
             </div>
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Data Peminjam</div>
+                    <div class="card-title">Data Pengembalian</div>
                   </div>
                   @if (session('success'))
                   <script>
@@ -85,8 +85,7 @@
                               <thead>
                                   <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Kode Peminjaman</th>
-                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Kode Pengembalian</th>
                                     <th scope="col">Nama Peminjam</th>
                                     <th scope="col">Tanggal Pinjam</th>
                                     <th scope="col">Tanggal Kembali</th>
@@ -96,12 +95,11 @@
                                   </tr>
                               </thead>
                               @php $no = 1; @endphp
-                              @foreach ($peminjaman as $data)
+                              @foreach ($pengembalian as $data)
                               <tbody>
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
                                   <td>{{ $data->kode_barang }}</td>
-                                  <td>{{ $data->jumlah }}</td>
                                   <td>{{ $data->nama_peminjam }}</td>
                                   <td>{{ $data->tglpinjam }}</td>
                                   <td>{{ $data->tglkembali }}</td>
@@ -110,8 +108,8 @@
           
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                      <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                      <a href="{{ route('pengembalian.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -120,11 +118,6 @@
                                 </tr>
                                 @endforeach
                               </tbody>
-                          </table>
-                            <div class="ms-2 mt-3 mb-4">
-                            <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-success">Add</a>
-                            </div>
-                      </div>
                       <!-- /.table-responsive -->
                   </div>
                   </div>

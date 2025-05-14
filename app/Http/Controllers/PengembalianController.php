@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengembalians;
+use App\Models\Peminjamans;
+
 
 class PengembalianController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
+    
     {
-        $pengembalian = Pengembalians::all();
+        $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')->get();
+        $tanggalAwal = $request->input('tglmasuk');
+        $tanggalAkhir = $request->input('tglkeluar');
+
+        if (!$tanggalAwal || !$tanggalAkhir) {
+            $kembali = Peminjamans::where('status', 'Sudah Dikembalikan')->get();
+        } else {
+            $kembali = Peminjamans::where('status', 'Sudah Dikembalikan')
+                ->whereBetween('tglkembali', [$tanggalAwal, $tanggalAkhir])
+                ->get();
+        }
         return view('pengembalian.index', compact('pengembalian'));
     }
 
@@ -21,7 +34,7 @@ class PengembalianController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
