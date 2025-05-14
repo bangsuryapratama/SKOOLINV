@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataPusats;
 use Illuminate\Http\Request;
 use App\Models\Peminjamans;
 
@@ -22,7 +23,9 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = DataPusats::all();
+        $peminjamans = Peminjamans::all();
+        return view('peminjaman.create', compact('barangs', 'peminjamans'));
     }
 
     /**
@@ -30,7 +33,26 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+
+        // Create a new peminjaman
+        $peminjaman = new Peminjamans();
+        $lastRecord = Peminjamans::latest('id')->first();
+        $lastId = $lastRecord ? $lastRecord->id : 0;
+        $kodeBarang = 'PNJM-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        $peminjaman->kode_barang = $kodeBarang;
+        $peminjaman->nama_peminjam = $request->input('nama_peminjam');
+        $peminjaman->id_barang = $request->input('id_barang');
+        $peminjaman->jumlah = $request->input('jumlah');
+        $peminjaman->tglpinjam = $request->input('tglpinjam');
+        $peminjaman->tglkembali = $request->input('tglkembali');
+        $peminjaman->status = $request->input('status', 'pending'); 
+        
+
+    dd($peminjaman);
+
+        $peminjaman->save();
+        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman created successfully.');
     }
 
     /**

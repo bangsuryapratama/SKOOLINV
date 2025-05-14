@@ -43,18 +43,6 @@
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -112,5 +100,8 @@
             </div>
           </nav>
       
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

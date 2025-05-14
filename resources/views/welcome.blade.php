@@ -7,7 +7,32 @@
     <link rel="icon" href="{{ asset('frontend/img/favicon.ico') }}" type="image/x-icon"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+    rel="icon"
+    href="{{ asset('assets/images/logowhite.png') }}"
+    type="image/x-icon"
+  />
+
+  <!-- Fonts and icons -->
+  <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: [
+          "Font Awesome 5 Solid",
+          "Font Awesome 5 Regular",
+          "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["{{ asset('assets/css/fonts.min.css') }}"],
+          },
+          active: function () {
+          sessionStorage.fonts = true;
+          },
+        });
+        </script>
+
   
 
     <!-- CSS Files -->
@@ -33,8 +58,6 @@
               @include('layouts.kerangka.navbar')
           <!-- End Navbar -->
         </div>
-
-        
 
         <div class="container">
           <div class="page-inner">
@@ -168,60 +191,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="card card-primary card-round">
-                  <div class="card-header">
-                    <div class="card-head-row">
-                      <div class="card-title">Daily Sales</div>
-                      <div class="card-tools">
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-sm btn-label-light dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-bs-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            Export
-                          </button>
-                          <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton"
-                          >
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#"
-                              >Something else here</a
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-category">March 25 - April 02</div>
-                  </div>
-                  <div class="card-body pb-0">
-                    <div class="mb-4 mt-2">
-                      <h1>$4,578.58</h1>
-                    </div>
-                    <div class="pull-in">
-                      <canvas id="dailySalesChart"></canvas>
-                    </div>
-                  </div>
-                </div>
-                <div class="card card-round">
-                  <div class="card-body pb-0">
-                    <div class="h1 fw-bold float-end text-primary">+5%</div>
-                    <h2 class="mb-2">17</h2>
-                    <p class="text-muted">Users online</p>
-                    <div class="pull-in sparkline-fix">
-                      <div id="lineChart"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-
           </div>
         </div> 
       </div>
@@ -229,39 +199,68 @@
 
     
     <!--   Core JS Files   -->
-    <script src="{{ asset('frontend/js/core/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/core/bootstrap.min.js') }}"></script>
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
     <!-- Chart JS -->
-    <script src="{{ asset('frontend/js/plugin/chart.js/chart.min.js') }}"></script>
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
 
     <!-- jQuery Sparkline -->
-    <script src="{{ asset('frontend/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
     <!-- Chart Circle -->
-    <script src="{{ asset('frontend/js/plugin/chart-circle/circles.min.js') }}"></script>
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
 
     <!-- Datatables -->
-    <script src="{{ asset('frontend/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
 
     <!-- Bootstrap Notify -->
-    <script src="{{ asset('frontend/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
     <!-- jQuery Vector Maps -->
-    <script src="{{ asset('frontend/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/plugin/jsvectormap/world.js') }}"></script>
-
-    <!-- Google Maps Plugin -->
-    <script src="{{ asset('frontend/js/plugin/gmaps/gmaps.js') }}"></script>
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
 
     <!-- Sweet Alert -->
-    <script src="{{ asset('frontend/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
     <!-- Kaiadmin JS -->
-    <script src="{{ asset('frontend/js/kaiadmin.min.js') }}"></script>
+    <script src="assets/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="assets/js/setting-demo.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
   </body>
 </html>

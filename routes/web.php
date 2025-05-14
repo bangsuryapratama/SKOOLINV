@@ -28,16 +28,15 @@ Auth::routes();
 // Route Home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route Pengguna
-Route::get('/pengguna', [PenggunasController::class, 'index'])->name('pengguna.index');
-Route::resource('pengguna', PenggunasController::class);
-        
 
 //Route AKSES BLOKIR
 Route::middleware('admin')->group(function () {
     Route::resource('pengguna', PenggunasController::class);
 });
 
+// Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
+    
+Route::resource('pengguna', PenggunasController::class);    
 
 //Route Barang
 Route::resource('barang', App\Http\Controllers\DataPusatController::class);
@@ -53,3 +52,5 @@ Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
 
 //Pengembalian
 Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
+
+// });

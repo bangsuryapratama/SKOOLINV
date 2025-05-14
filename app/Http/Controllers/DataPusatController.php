@@ -85,7 +85,8 @@ class DataPusatController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $barangs = DataPusats::findOrFail($id);
+        return view('barang.show', compact('barangs'));
     }
 
     /**
