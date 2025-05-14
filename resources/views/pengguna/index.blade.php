@@ -58,9 +58,11 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <div class="card-header">
-                  <div class="card-title">Data Petugas</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <div class="card-title mb-0">Data Petugas</div>
+                  <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success me-4"><i class="fa fa-plus"></i></a>
                 </div>
+                
 
                 @if (session('success'))
                 <script>
@@ -81,9 +83,9 @@
                         <thead>
                           <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Username</th>
+                            <th scope="col">Nama</th>
                             <th scope="col">Email</th>
-                            <th scope="col" class="text-center">Action</th>
+                            <th scope="col" class="text-center">Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -95,19 +97,17 @@
                             <td>{{ $data->email }}</td>
                             <td class="text-center col-4">
                               <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                </button>
                               </form>
                             </td>
                           </tr>
                           @endforeach
                         </tbody>
                       </table>
-                      <div class="ms-2 mt-3">
-                        <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success">Add</a>
-                      </div>
                     </div>
                     <!-- /.table-responsive -->
                   </div>

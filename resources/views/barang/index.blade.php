@@ -48,82 +48,82 @@
         </div>
 
     {{-- Table --}}
-    <div class="container">
-        <div class="page-inner">
-            <div class="page-header">
-                <h3 class="fw-bold mb-3">Halaman Data Barang</h3>
-            </div>
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header ">
+            <h3 class="fw-bold mb-3">Halaman Data Barang</h3>
+        </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Data Barang</div>
-                        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-title mb-0">Data Barang</div>
+                    <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success me-4">
+                    <i class="fa fa-plus"></i></a>
+                  </div>
 
-                        @if (session('success'))
-                        <script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil!',
-                                text: '{{ session('success') }}',
-                                showConfirmButton: true,
-                                timer: 3000
-                            });
-                        </script>
-                        @endif
+                    @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: '{{ session('success') }}',
+                            showConfirmButton: true,
+                            timer: 3000
+                        });
+                    </script>
+                    @endif
 
-                        <div class="card-body">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table" id="example">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Barang</th>
-                                                <th>Nama</th>
-                                                <th>Merk</th>
-                                                <th>Foto</th>
-                                                <th>Stock</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php $no = 1; @endphp
-                                            @foreach ($barangs as $data)
-                                            <tr>
-                                                <th>{{ $no++ }}</th>
-                                                <td>{{ $data->kode_barang }}</td>
-                                                <td>{{ $data->nama }}</td>
-                                                <td>{{ $data->merk }}</td>
-                                                <td>
-                                                    <img src="{{ asset('/images/barangs/' . $data->foto) }}" width="70" alt="">
-                                                </td>
-                                                <td>{{ $data->stok }}</td>
-                                                <td class="text-center col-4">
-                                                    <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                                        <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                        <a href="{{ route('barang.show', $data->id) }}" class="btn btn-sm btn-warning">Show</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="ms-2 mt-3">
-                                        <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success">Add</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode Barang</th>
+                                            <th>Nama</th>
+                                            <th>Merek</th>
+                                            <th>Foto</th>
+                                            <th>Stok</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $no = 1; @endphp
+                                        @foreach ($barangs as $data)
+                                        <tr>
+                                            <th>{{ $no++ }}</th>
+                                            <td>{{ $data->kode_barang }}</td>
+                                            <td>{{ $data->nama }}</td>
+                                            <td>{{ $data->merk }}</td>
+                                            <td>
+                                                <img src="{{ asset('/images/barangs/' . $data->foto) }}" width="70" alt="">
+                                            </td>
+                                            <td>{{ $data->stok }}</td>
+                                            <td class="text-center col-4">
+                                              <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                                <a href="{{ route('barang.show', $data->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                                </button>
+                                              </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                              </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
+             </div>
+          </div>
         </div>
-    </div>
+     </div>
+  </div>
+</div>
 
     {{-- Akhir Table --}}
     </div>

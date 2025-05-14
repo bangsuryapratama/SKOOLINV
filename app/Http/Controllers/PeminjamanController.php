@@ -3,154 +3,194 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPusats;
-use Illuminate\Http\Request;
+use App\Models\Peminjaman;
 use App\Models\Peminjamans;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+
+Carbon::setlocale('id');
 
 class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function __construct()
     {
-        // Display a listing of the resource
-        $peminjaman = Peminjamans::all();
-        return view('peminjaman.index' , compact('peminjaman'));
+        $this->middleware('auth');
+    }
+
+    public function index(Request $request)
+    {
+        $tanggalAwal = $request->input('tanggal_awal');
+        $tanggalAkhir = $request->input('tanggal_akhir');
+
+        if (!$tanggalAwal || !$tanggalAkhir) {
+            $pinjam = Peminjamans::all()->map(function ($pinjam) {
+                // $pinjam->tgl_masuk = Carbon::parse($pinjam->tgl_masuk)->translatedFormat('l, d F Y');
+                return $pinjam;
+            });
+        } else {
+            $pinjam = Peminjamans::whereBetween('tglpinjam', [$tanggalAwal, $tanggalAkhir])->get();
+        }
+
+        foreach ($pinjam as $data) {
+            $data->formatted_tanggal_pinjam = Carbon::parse($data->tglpinjam)->translatedFormat('l, d F Y');
+        }
+
+        foreach ($pinjam as $data) {
+            $data->formatted_tanggal_kembali = Carbon::parse($data->tglkembali)->translatedFormat('l, d F Y');
+        }
+
+        
+        
+        return view('peminjaman.index', compact('pinjam'));
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $barangs = DataPusats::all();
-        $peminjamans = Peminjamans::all();
-        return view('peminjaman.create', compact('barangs', 'peminjamans'));
+        $pusat = DataPusats::all();
+        return view('peminjaman.create', compact('pusat'));
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
+    public function store(Request $request)
+    {
 
-     public function store(Request $request)
-     {
+        $request->validate([
+            'jumlah' => 'required|integer',
+            'tglpinjam' => 'required|date',
+            'tglkembali' => 'required|date',
+            'nama_peminjam' => 'required|string|max:255',
+            'id_barang' => 'required|exists:data_pusats,id',
+        ],
+        [
+            'jumlah.required' => 'Jumlah tidak boleh kosong',
+            'jumlah.integer' => 'Jumlah harus berupa angka',
+            'tglpinjam.required' => 'Tanggal pinjam tidak boleh kosong',
+            'tglpinjam.date' => 'Format tanggal tidak valid',
+            'tglkembali.required' => 'Tanggal kembali tidak boleh kosong',
+            'tglkembali.date' => 'Format tanggal tidak valid',
+            'nama_peminjam.required' => 'Nama peminjam tidak boleh kosong',
+            'id_barang.required' => 'ID Barang tidak boleh kosong',
+            'id_barang.exists' => 'ID Barang tidak ditemukan',
+        ]);
 
-    $request->validate([
-        'jumlah' => 'required',
-        'tglpinjam' => 'required',
-        'tglkembali' => 'required',
-        'nama_peminjam' => 'required',
-        'id_barang' => 'required',
-    ], [
-        'jumlah.required' => 'Jumlah Harus Diisi',
-        'tglpinjam.required' => 'Tanggal Pinjam Harus Diisi',
-        'tglkembali.required' => 'Tanggal Kembali Harus Diisi',
-        'nama_peminjam.required' => 'Nama Peminjam Harus Diisi',
-        'id_barang.required' => 'Barang Harus Diisi',
-    ]);
 
-    $peminjaman = new Peminjamans();
+        $pinjam = new Peminjamans;
 
-    $lastRecord = Peminjamans::latest('id')->first();
-    $lastId = $lastRecord ? $lastRecord->id : 0;
-    $kodeBarang = 'PJM-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        $lastRecord = Peminjamans::latest('id')->first();
+        $lastId = $lastRecord ? $lastRecord->id : 0;
+        $kodeBarang = 'PJM-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
 
-    $peminjaman->kode_barang = $kodeBarang;
+        $pinjam->kode_barang = $kodeBarang;
+        $pinjam->jumlah = $request->jumlah;
+        $pinjam->tglpinjam = $request->tglpinjam;
+        $pinjam->tglkembali = $request->tglkembali;
+        $pinjam->nama_peminjam = $request->nama_peminjam;
+        $pinjam->id_barang = $request->id_barang;
+        $pinjam->status = "Sedang Dipinjam";
 
-    $peminjaman->jumlah = $request->jumlah;
-    $peminjaman->tglpinjam = $request->tglpinjam;
-    $peminjaman->tglkembali = $request->tglkembali;
-    $peminjaman->nama_peminjam = $request->nama_peminjam;
-    $peminjaman->id_barang = $request->id_barang;
-    $peminjaman->status = "Sedang Dipinjam";
+        $pusat = DataPusats::findOrFail($request->id_barang);
+        if ($pusat->stok < $request->jumlah) {
+            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
+            return redirect()->route('peminjaman.index');
+        } else {
+            $pusat->stok -= $request->jumlah;
+            $pusat->save();
+        }
 
-    $barangs = DataPusats::findOrFail($request->id_barang);
-    if ($barangs->stok < $request->jumlah) {
-        Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
-        return redirect()->route('peminjaman.index');
-    } else {
-        $barangs->stok -= $request->jumlah;
-        $barangs->save();
+        $pinjam->save();
+       
+        return redirect()->route('peminjaman.index') ->with('success', 'Data Peminjaman Berhasil Ditambahkan');
     }
-
-    
-
-    $peminjaman->save();
-    Alert::success('Success', 'Data Berhasil Ditambahkan')->autoclose(1500);
-    return redirect()->route('peminjaman.index');
-}
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Peminjaman  $peminjaman
+     * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $pinjam = Peminjamans::findOrFail($id);
+        return view('peminjaman.show', compact('pinjam'));
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Peminjaman  $peminjaman
+     * @return \Illuminate\Http\Response
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $peminjaman = Peminjamans::findOrFail($id);
-        $barangs = DataPusats::all();
-        return view('peminjaman.edit', compact('peminjaman', 'barangs'));
+        $pinjam = Peminjamans::findOrFail($id);
+        $pusat = DataPusats::all();
+        return view('peminjaman.edit', compact('pinjam', 'pusat'));
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Peminjaman  $peminjaman
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'jumlah' => 'required',
-            'tglpinjam' => 'required',
-            'tglkembali' => 'required',
-            'nama_peminjam' => 'required',
-            'id_barang' => 'required',
-        ], [
-            'jumlah.required' => 'Jumlah Harus Diisi',
-            'tglpinjam.required' => 'Tanggal Pinjam Harus Diisi',
-            'tglkembali.required' => 'Tanggal Kembali Harus Diisi',
-            'nama_peminjam.required' => 'Nama Peminjam Harus Diisi',
-            'id_barang.required' => 'Barang Harus Diisi',
-        ]);
-
-        $peminjaman = Peminjamans::findOrFail($id);
-        $barangs = DataPusats::findOrFail($peminjaman->id_barang);
+        $pinjam = Peminjamans::findOrFail($id);
+        $pusat = DataPusats::findOrFail($pinjam->id_barang);
 
         // status pengembalian
         if ($request->status == "Sudah Dikembalikan") {
-            $peminjaman->stok += $peminjaman->jumlah;
-            $peminjaman->save();
+            $pusat->stok += $pinjam->jumlah;
+            $pusat->save();
         }
 
         //logic perubahan ketika update
-        if ($barangs->stok < $request->jumlah) {
+        if ($pusat->stok < $request->jumlah) {
             Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
             return redirect()->route('peminjaman.index');
         } else {
-            $barangs->stok += $peminjaman->jumlah;
-            $barangs->stok -= $request->jumlah;
-            $barangs->save();
+            $pusat->stok += $pinjam->jumlah;
+            $pusat->stok -= $request->jumlah;
+            $pusat->save();
         }
 
-        $peminjaman->update($request->all());
+        $pinjam->update($request->all());
 
-        $peminjaman->save();
-        Alert::success('Success', 'Data Berhasil Diubah')->autoclose(1500);
-        return redirect()->route('peminjaman.index');
+        $pinjam->save();
+       
+        return redirect()->route('peminjaman.index') ->with('success', 'Data Peminjaman Berhasil Diperbarui');
 
-            
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Peminjaman  $peminjaman
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $pinjam = Peminjamans::findOrFail($id);
+        $pinjam->delete();
+        Alert::success('Success', 'Data Berhasil Dihapus')->autoclose(1500);
+        return redirect()->route('peminjaman.index');
     }
 }

@@ -51,7 +51,7 @@ class BarangMasukController extends Controller
         $barangmasuk = new BarangMasuks();
         $lastRecord = BarangMasuks::latest('id')->first();
         $lastId = $lastRecord ? $lastRecord->id : 0;
-        $kodeBarang = 'SKV-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        $kodeBarang = 'MSK-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         $barangmasuk->kode_barang = $kodeBarang;
 
         $dataPusat = DataPusats::find($request->id_barang);

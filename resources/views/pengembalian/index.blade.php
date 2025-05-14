@@ -86,12 +86,13 @@
                                   <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Kode Pengembalian</th>
+                                    <th scope="col">Jumlah</th>
                                     <th scope="col">Nama Peminjam</th>
                                     <th scope="col">Tanggal Pinjam</th>
                                     <th scope="col">Tanggal Kembali</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">ID Barang</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th scope="col">Nama Barang</th>
+                                    <th scope="col" class="text-center">Aksi</th>
                                   </tr>
                               </thead>
                               @php $no = 1; @endphp
@@ -100,19 +101,22 @@
                                 <tr>
                                   <th scope="row">{{ $no++ }}</th>
                                   <td>{{ $data->kode_barang }}</td>
+                                  <td>{{ $data->jumlah }}</td>
                                   <td>{{ $data->nama_peminjam }}</td>
                                   <td>{{ $data->tglpinjam }}</td>
                                   <td>{{ $data->tglkembali }}</td>
-                                  <td style="color:red">{{ $data->status }}</td>
+                                  <td><span class="badge {{ $data->status == 'Sedang Dipinjam' ? 'bg-danger' : 'bg-success' }}">
+                                    {{ $data->status }}
+                                  </span> </td>
                                   <td>{{ $data->barang->nama }}</td>
           
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                      <a href="{{ route('pengembalian.edit', $data->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('barangmasuk.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
                                       @csrf
                                       @method('DELETE')
-                                      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                      </button>
                                     </form>
                                   </td>
                                 </tr>

@@ -68,7 +68,7 @@
                       <select name="id_barang" id="id_barang" class="form-control @error('id_barang') is-invalid @enderror"
                         style="color: #000; background-color: #f5f5f5;" required>
                         <option value="" disabled selected>Pilih Barang</option>
-                        @foreach ($barangs as $data)
+                        @foreach ($pusat as $data)
                           <option value="{{ $data->id }}">{{ $data->nama }}</option>
                         @endforeach
                       </select>

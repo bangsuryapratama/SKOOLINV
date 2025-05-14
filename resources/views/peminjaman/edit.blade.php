@@ -62,7 +62,7 @@
                     <div class="card-body">
                         <h4 class="card-title" style="color: #000">Edit Data Peminjaman</h4>
 
-                        <form action="{{ route('peminjaman.update' , $peminjaman->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                        <form action="{{ route('peminjaman.update' , $pinjam->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
                             @csrf
                             @method('PUT')
 
@@ -82,7 +82,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Nama Peminjam</label>
                                 <input type="text" class="form-control @error('nama_peminjam') is-invalid @enderror" name="nama_peminjam"
-                                  value="{{ $peminjaman->nama_peminjam }}" placeholder="Masukan Nama Peminjam" id="putih" style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $pinjam->nama_peminjam }}" placeholder="Masukan Nama Peminjam" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('nama_peminjam')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -93,7 +93,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Jumlah</label>
                                 <input type="number" class="form-control @error('jumlah') is-invalid @enderror" name="jumlah"
-                                  value="{{ $peminjaman->jumlah }}" placeholder="Masukan Jumlah" id="putih" style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $pinjam->jumlah }}" placeholder="Masukan Jumlah" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('jumlah')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -102,9 +102,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Tanggal Peminjaman</label>
+                                <label for="exampleInputEmail3">Tanggal Peminjam</label>
                                 <input type="date" class="form-control @error('tglpinjam') is-invalid @enderror" name="tglpinjam"
-                                  value="{{ $peminjaman->tglpinjam }}" placeholder="Masukan Tanggal" id="putih" style="color: #000; background-color: #f5f5f5;">
+                                  value="{{ $pinjam->tglpinjam }}" placeholder="Masukan Tanggal" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('tglpinjam')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -115,7 +115,7 @@
                            <div class="form-group">
                             <label for="exampleInputEmail3">Tanggal Kembali</label>
                             <input type="date" class="form-control @error('tglkembali') is-invalid @enderror" name="tglkembali"
-                              value="{{ $peminjaman->tglkembali }}" placeholder="Masukan Tanggal" id="putih" style="color: #000; background-color: #f5f5f5;">
+                              value="{{ $pinjam->tglkembali }}" placeholder="Masukan Tanggal" id="putih" style="color: #000; background-color: #f5f5f5;">
                             @error('tglkembali')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -125,7 +125,7 @@
 
                            <div class="form-group">
                             <label for="exampleInputPassword4">Status</label>
-                            <select name="status" class="form-control" id="" value="{{ $peminjaman->status }}"
+                            <select name="status" class="form-control" id="" value="{{ $pinjam->status }}"
                                 style="color: #000; background-color: #f5f5f5;">
                                 <option value="Sedang Dipinjam">Sedang Dipinjam</option>
                                 <option value="Sudah Dikembalikan">Sudah Dikembalikan</option>

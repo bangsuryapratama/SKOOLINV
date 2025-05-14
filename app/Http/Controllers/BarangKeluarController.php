@@ -80,8 +80,7 @@ class BarangKeluarController extends Controller
         }
 
         $barangkeluar->save();
-        Alert::success('success', 'Data Berhasil Ditambahkan')->autoClose(1500);
-        return redirect()->route('barangkeluar.index');
+        return redirect()->route('barangkeluar.index')->with('success', 'Barang Keluar berhasil ditambahkan');
     }
 
     /**
@@ -146,7 +145,7 @@ class BarangKeluarController extends Controller
             $pusat->save();
         }
 
-        
+
 
         $barangkeluar->save();
 
