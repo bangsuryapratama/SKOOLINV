@@ -62,7 +62,7 @@
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <div class="card-title mb-0">Data Barang</div>
-                  <a href="{{ route('barangkeluar.create') }}" class="btn btn-sm btn-success me-4">
+                  <a href="{{ route('barangmasuk.create') }}" class="btn btn-sm btn-success me-4">
                   <i class="fa fa-plus"></i></a>
                 </div>
 
