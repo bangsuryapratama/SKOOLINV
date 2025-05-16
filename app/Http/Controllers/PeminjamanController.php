@@ -24,32 +24,27 @@ class PeminjamanController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+  public function index(Request $request)
     {
-        $tanggalAwal = $request->input('tanggal_awal');
-        $tanggalAkhir = $request->input('tanggal_akhir');
+    $tanggalAwal = $request->input('tanggal_awal');
+    $tanggalAkhir = $request->input('tanggal_akhir');
 
-        if (!$tanggalAwal || !$tanggalAkhir) {
-            $pinjam = Peminjamans::all()->map(function ($pinjam) {
-                // $pinjam->tgl_masuk = Carbon::parse($pinjam->tgl_masuk)->translatedFormat('l, d F Y');
-                return $pinjam;
-            });
-        } else {
-            $pinjam = Peminjamans::whereBetween('tglpinjam', [$tanggalAwal, $tanggalAkhir])->get();
-        }
-
-        foreach ($pinjam as $data) {
-            $data->formatted_tanggal_pinjam = Carbon::parse($data->tglpinjam)->translatedFormat('l, d F Y');
-        }
-
-        foreach ($pinjam as $data) {
-            $data->formatted_tanggal_kembali = Carbon::parse($data->tglkembali)->translatedFormat('l, d F Y');
-        }
-
-        
-        
-        return view('peminjaman.index', compact('pinjam'));
+    if (!$tanggalAwal || !$tanggalAkhir) {
+        $pinjam = Peminjamans::where('status', 'Sedang Dipinjam')->get();
+    } else {
+        $pinjam = Peminjamans::where('status', 'Sedang Dipinjam')
+            ->whereBetween('tglpinjam', [$tanggalAwal, $tanggalAkhir])
+            ->get();
     }
+
+    foreach ($pinjam as $data) {
+        $data->formatted_tanggal_pinjam = Carbon::parse($data->tglpinjam)->translatedFormat('l, d F Y');
+        $data->formatted_tanggal_kembali = Carbon::parse($data->tglkembali)->translatedFormat('l, d F Y');
+    }
+
+    return view('peminjaman.index', compact('pinjam'));
+}
+
 
     /**
      * Show the form for creating a new resource.

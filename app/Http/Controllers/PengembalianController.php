@@ -23,8 +23,8 @@ class PengembalianController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
-    {
+   public function index(Request $request)
+     {
         $tanggalAwal = $request->input('tanggal_awal');
         $tanggalAkhir = $request->input('tanggal_akhir');
 
@@ -32,12 +32,13 @@ class PengembalianController extends Controller
             $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')->get();
         } else {
             $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')
-                ->whereBetween('tgl_kembali', [$tanggalAwal, $tanggalAkhir])
+                ->whereBetween('tglkembali', [$tanggalAwal, $tanggalAkhir])
                 ->get();
         }
 
         foreach ($pengembalian as $data) {
-            $data->formatted_tanggal = Carbon::parse($data->tgl_kembali)->translatedFormat('l, d F Y');
+            $data->formatted_tanggal_pinjam = Carbon::parse($data->tglpinjam)->translatedFormat('l, d F Y');
+            $data->formatted_tanggal_kembali = Carbon::parse($data->tglkembali)->translatedFormat('l, d F Y');
         }
 
         return view('pengembalian.index', compact('pengembalian'));
