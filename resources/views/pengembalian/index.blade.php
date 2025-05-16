@@ -112,7 +112,7 @@
           
 
                                   <td class="text-center col-4">
-                                    <form action="{{ route('barangmasuk.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
+                                    <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
                                       @csrf
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>

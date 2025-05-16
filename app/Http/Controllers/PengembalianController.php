@@ -104,8 +104,10 @@ class PengembalianController extends Controller
      * @param  \App\Models\Pengembalian  $pengembalian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengembalians $pengembalian)
+    public function destroy(Peminjamans $pengembalian)
     {
-
+        $pengembalian->delete();
+        session()->flash('success', 'Data Berhasil Dihapus');
+        return redirect()->route('pengembalian.index');
     }
 }
