@@ -88,8 +88,11 @@ class BarangKeluarController extends Controller
      */
     public function show(string $id)
     {
-        //
+       $barangkeluar = BarangKeluar::findorfail($id);
+       $barangs = DataPusats::all();
+       return view('barangkeluar.show', compact('barangkeluar'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,54 +107,66 @@ class BarangKeluarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'jumlah' => 'required|integer',
-            'tglkeluar' => 'required|date',
-            'ket' => 'nullable|string',
-            'id_barang' => 'required|exists:Data_Pusats,id',
-        ],
-        [
-            'jumlah.required' => 'Jumlah tidak boleh kosong',
-            'jumlah.integer' => 'Jumlah harus berupa angka',
-            'tglkeluar.required' => 'Tanggal masuk tidak boleh kosong',
-            'tglkeluar.date' => 'Format tanggal tidak valid',
-            'ket.string' => 'Keterangan harus berupa teks',
-            'id_barang.required' => 'ID Barang tidak boleh kosong',
-            'id_barang.exists' => 'ID Barang tidak ditemukan',
-        ]);
+   public function update(Request $request, string $id)
+{
+    $request->validate([
+        'jumlah' => 'required|integer',
+        'tglkeluar' => 'required|date',
+        'ket' => 'nullable|string',
+        'id_barang' => 'required|exists:Data_Pusats,id',
+    ],
+    [
+        'jumlah.required' => 'Jumlah tidak boleh kosong',
+        'jumlah.integer' => 'Jumlah harus berupa angka',
+        'tglkeluar.required' => 'Tanggal keluar tidak boleh kosong',
+        'tglkeluar.date' => 'Format tanggal tidak valid',
+        'ket.string' => 'Keterangan harus berupa teks',
+        'id_barang.required' => 'ID Barang tidak boleh kosong',
+        'id_barang.exists' => 'ID Barang tidak ditemukan',
+    ]);
 
-        $barangkeluar = BarangKeluar::findOrFail($id);
-        $dataPusat = DataPusats::find($barangkeluar->id_barang);
-        $dataPusat->stok += $barangkeluar->jumlah;
-        $dataPusat->stok -= $request->jumlah;
-        
-        $dataPusat->save();
+    $barangkeluar = BarangKeluar::findOrFail($id);
 
-        $barangkeluar->jumlah = $request->jumlah;
-        $barangkeluar->tglkeluar = $request->tglkeluar;
-        $barangkeluar->ket = $request->ket;
-        $barangkeluar->id_barang = $request->id_barang;
+    // Ambil data barang yang sebelumnya
+    $dataPusatLama = DataPusats::find($barangkeluar->id_barang);
+    // Kembalikan stok lama
+    $dataPusatLama->stok += $barangkeluar->jumlah;
+    $dataPusatLama->save();
 
+    // Jika barang yang dipilih diganti, maka ambil data barang baru
+    if ($barangkeluar->id_barang != $request->id_barang) {
+        $dataPusatBaru = DataPusats::findOrFail($request->id_barang);
 
-
-             $pusat = DataPusats::findOrFail($request->id_barang);
-        if ($pusat->stok < $request->jumlah) {
-            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(1500);
-            return redirect()->route('barangkeluar.index');
-        } else {
-            $pusat->stok -= $request->jumlah;
-            $pusat->save();
+        // Kurangi stok barang baru dengan jumlah yang baru
+        if ($dataPusatBaru->stok < $request->jumlah) {
+            alert('Gagal!', 'Stok tidak cukup')->autoClose(1500);
+           return redirect()->route('barangkeluar.index')->with('Gagal', 'Stok tidak cukup!');
         }
 
+        $dataPusatBaru->stok -= $request->jumlah;
+        $dataPusatBaru->save();
+    } else {
+        // Kalau barangnya tidak berubah, kurangi dari stok yang sama
+        $dataPusatLama->stok -= $request->jumlah;
 
+        if ($dataPusatLama->stok < 0) {
+            alert('Gagal!', 'Stok tidak cukup')->autoClose(1500);
+            return redirect()->route('barangkeluar.index')->with('Gagal', 'Stok tidak cukup!');
+        }
 
-        $barangkeluar->save();
-
-        Alert::success('Berhasil!', 'Barang Masuk berhasil diperbarui');
-        return redirect()->route('barangkeluar.index')->with('success', 'Barang Masuk berhasil diperbarui');
+        $dataPusatLama->save();
     }
+
+    $barangkeluar->jumlah = $request->jumlah;
+    $barangkeluar->tglkeluar = $request->tglkeluar;
+    $barangkeluar->ket = $request->ket;
+    $barangkeluar->id_barang = $request->id_barang;
+    $barangkeluar->save();
+
+    
+      alert('Berhasil!', 'Data Barang Keluar Berhasil Diupdate')->autoClose(1500);
+     return redirect()->route('barangkeluar.index')->with('success', 'Berhasil di update');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -161,7 +176,7 @@ class BarangKeluarController extends Controller
         $barangkeluar = BarangKeluar::findOrFail($id);
         $barangkeluar->delete();
 
-        Alert::success('Berhasil!', 'Data Barang Keluar Berhasil Dihapus');
+        alert('Berhasil!', 'Data Barang Keluar Berhasil Dihapus')->autoClose(1500);
         return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Dihapus');
     }
 }

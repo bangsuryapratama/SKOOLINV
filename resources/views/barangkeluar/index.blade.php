@@ -29,8 +29,8 @@
   <!-- Pace loader -->
   <script src="assets/js/pace.min.js" defer></script>
 
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  <!-- SweetAlert2 CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -142,9 +142,7 @@
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  @include('sweetalert::alert')
   @stack('scripts')
-
 </body>
 
 </html>

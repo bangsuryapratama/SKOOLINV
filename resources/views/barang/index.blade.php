@@ -29,9 +29,9 @@
   <!-- Pace loader -->
   <script src="assets/js/pace.min.js" defer></script>
 
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-
+   <!-- SweetAlert2 CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 </head>
 
 <body>
@@ -52,7 +52,7 @@
       <div class="container">
         <div class="page-inner">
           <div class="page-header">
-            <h3 class="fw-bold mb-3">Halaman Data Barang Keluar</h3>
+            <h3 class="fw-bold mb-3">Halaman Data Barang</h3>
           </div>
           <div class="row">
             <div class="col-12">

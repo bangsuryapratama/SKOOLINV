@@ -29,7 +29,7 @@ var ctx = document.getElementById('statisticsChart').getContext('2d');
 var statisticsChart = new Chart(ctx, {
     type: 'bar',
     data: {
-    labels: ['Barang Masuk', 'Barang Keluar', 'Barang Dipinjam', 'Total Barang'],
+    labels: ['Barang Masuk', 'Barang Keluar', 'Barang Dipinjam', 'Jenis Barang Terdata'],
     datasets: [{
         label: 'Jumlah',
         data: [

@@ -122,8 +122,9 @@ class PeminjamanController extends Controller
      */
     public function show($id)
     {
-        $pinjam = Peminjamans::findOrFail($id);
-        return view('peminjaman.show', compact('pinjam'));
+        $peminjaman = Peminjamans::findOrFail($id);
+        $barang = DataPusats::All();
+        return view('peminjaman.show', compact('peminjaman'));
     }
 
     /**

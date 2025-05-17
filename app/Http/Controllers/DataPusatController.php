@@ -37,7 +37,6 @@ class DataPusatController extends Controller
             'nama' => 'required',
             'merk' => 'required',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,webp|max:9999',
-            'stok' => 'required',
         ],
         [
             'nama.required' => 'Nama tidak boleh kosong',
@@ -45,7 +44,6 @@ class DataPusatController extends Controller
             'foto.image' => 'File harus berupa gambar',
             'foto.mimes' => 'Format gambar tidak valid',
             'foto.max' => 'Ukuran gambar terlalu besar',
-            'stok.required' => 'Stok tidak boleh kosong',
         ]
     
     );
@@ -73,7 +71,7 @@ class DataPusatController extends Controller
             $barangs->foto = $name;
         }
 
-        $barangs->stok = $request->stok;
+        $barangs->stok = 0;
         $barangs->save();
         Alert::success('Berhasil!', 'Data Barang Berhasil Ditambahkan');
 
@@ -107,7 +105,6 @@ class DataPusatController extends Controller
             'nama' => 'required',
             'merk' => 'required',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,webp|max:9999',
-            'stok' => 'required',
         ],
         [
             'nama.required' => 'Nama tidak boleh kosong',
@@ -115,7 +112,6 @@ class DataPusatController extends Controller
             'foto.image' => 'File harus berupa gambar',
             'foto.mimes' => 'Format gambar tidak valid',
             'foto.max' => 'Ukuran gambar terlalu besar',
-            'stok.required' => 'Stok tidak boleh kosong',
         ]
     
     );
@@ -141,7 +137,7 @@ class DataPusatController extends Controller
             $barangs->foto = $name;
 
         }
-        $barangs->stok = $request->stok;
+        $barangs->stok = 0;
         $barangs->save();
         Alert::success('Berhasil!', 'Data Barang Berhasil Ditambahkan');
 
@@ -160,6 +156,7 @@ class DataPusatController extends Controller
         }
 
         $barangs->delete();
+        alert()->success('Berhasil!', 'Data Barang Berhasil Dihapus');
         return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Dihapus');
     }
 }

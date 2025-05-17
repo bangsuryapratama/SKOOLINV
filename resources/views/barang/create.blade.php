@@ -112,18 +112,6 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">Stock</label>
-                                <input type="number" class="form-control @error('stok') is-invalid @enderror" name="stok"
-                                    value="{{ old('stok') }}" placeholder="Masukan Jumlah Stok" id="stok"
-                                    style="color: #000; background-color: #f5f5f5;">
-                                @error('stok')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
                             <button type="submit" class="btn btn-primary ms-1 mt-3">Simpan</button>
                             <a href="{{ route('barang.index') }}" class="btn btn-dark mt-3">Kembali</a>
                         </form>

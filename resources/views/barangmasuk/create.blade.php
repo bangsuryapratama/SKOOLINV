@@ -67,6 +67,22 @@
                         <form action="{{ route('barangmasuk.store') }}" method="POST" enctype="multipart/form-data" class="forms-sample">
                             @csrf
                             <div class="form-group">
+                                <label for="exampleInputEmail3">ID_BARANG</label>
+                                <select name="id_barang" id="id_barang" style="color: #000; background-color: #f5f5f5"; class="form-control @error('id_barang') is-invalid @enderror">
+                                    <option value="" disabled selected>Pilih Barang</option>
+                                    @foreach ($barangs as $data)
+                                  
+                                        <option value="{{ $data->id }}">{{ $data->nama}}
+                                    
+                                    @endforeach
+                                </select>
+                                @error('id_barang')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputName1">Jumlah</label>
                                 <input type="number" class="form-control  @error('jumlah') is-invalid @enderror" name="jumlah"
                                     value="{{ old('jumlah') }}" placeholder="Jumlah.." id="putih"
@@ -93,22 +109,6 @@
                                 <input type="text" class="form-control @error('ket') is-invalid @enderror" name="ket"
                                     placeholder="Masukan Keterangan" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('ket')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">ID_BARANG</label>
-                                <select name="id_barang" id="id_barang" style="color: #000; background-color: #f5f5f5"; class="form-control @error('id_barang') is-invalid @enderror">
-                                    <option value="" disabled selected>Pilih Barang</option>
-                                    @foreach ($barangs as $data)
-                                  
-                                        <option value="{{ $data->id }}">{{ $data->nama}}
-                                    
-                                    @endforeach
-                                </select>
-                                @error('id_barang')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

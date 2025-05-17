@@ -99,6 +99,7 @@
                           <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $data->kode_barang }}</td>
+                            <td>{{ $data->barang->nama }}</td>
                             <td>{{ $data->jumlah }}</td>
                             <td>{{ $data->nama_peminjam }}</td>
                             <td>{{ $data->tglpinjam }}</td>
@@ -108,7 +109,6 @@
                                 {{ $data->status }}
                               </span>
                             </td>
-                            <td>{{ $data->barang->nama }}</td>
                             <td class="text-center col-4">
                               
                               <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
