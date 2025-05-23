@@ -34,7 +34,7 @@ Route::middleware('admin')->group(function () {
     Route::resource('pengguna', PenggunasController::class);
 });
 
-// Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     
 Route::resource('pengguna', PenggunasController::class);    
 
@@ -53,4 +53,4 @@ Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
 //Pengembalian
 Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
 
-// });
+});
