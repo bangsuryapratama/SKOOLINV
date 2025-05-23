@@ -54,3 +54,19 @@ Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
 Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
 
 });
+
+
+
+// Route::resource('barang', App\Http\Controllers\DataPusatController::class);
+
+// //Route Barang Masuk
+// Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
+
+// //Route Barang Keluar
+// Route::resource('barangkeluar', App\Http\Controllers\BarangKeluarController::class);
+
+// //Peminjaman
+// Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+
+// //Pengembalian
+// Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);

@@ -60,6 +60,8 @@
               </a>
             </li>
 
+          @endif
+
             <li class="nav-item {{ request()->routeIs('barang.*') ? 'active' : '' }}">
               <a href="{{ route('barang.index') }}">
                 <i class="fas fa-dolly-flatbed"></i>
@@ -95,7 +97,7 @@
               </a>
             </li>
 
-          @endif
+      
 
         </ul>
       </div>

@@ -3,7 +3,10 @@
     <div class="card card-round">
         <div class="card-header">
         <div class="card-head-row">
-            <div class="card-title">Statistik Barang</div>
+            <div class="card-title">
+                                     Statistik Barang 
+                <p class="text-muted">Update terakhir: {{ date('d M Y, H:i') }}</p>
+            </div>
         </div>
         </div>
         <div class="card-body">
@@ -29,26 +32,28 @@ var ctx = document.getElementById('statisticsChart').getContext('2d');
 var statisticsChart = new Chart(ctx, {
     type: 'bar',
     data: {
-    labels: ['Barang Masuk', 'Barang Keluar', 'Barang Dipinjam', 'Jenis Barang Terdata'],
+    labels: ['Barang Dipinjam','Jenis Barang Terdata','Barang Masuk', 'Barang Keluar' ],
     datasets: [{
         label: 'Jumlah',
         data: [
-        {{ $barangMasuk }},
-        {{ $barangKeluar }},
         {{ $barangDipinjam }},
-        {{ $barangTotal }}
+        {{ $barangTotal }},
+        {{ $barangMasuk }},
+        {{ $barangKeluar }}
+        
         ],
         backgroundColor: [
+        'rgba(243, 84, 93, 0.7)',    
         'rgba(23, 125, 255, 0.7)',
-        'rgba(255, 165, 52, 0.7)',
-        'rgba(243, 84, 93, 0.7)',
-        'rgba(40, 167, 69, 0.7)'
+        'rgba(40, 167, 69, 0.7)',
+        'rgba(255, 165, 52, 1)'
+        
         ],
         borderColor: [
-        'rgba(23, 125, 255, 1)',
-        'rgba(255, 165, 52, 1)',
         'rgba(243, 84, 93, 1)',
-        'rgba(40, 167, 69, 1)'
+        'rgba(23, 125, 255, 1)',
+        'rgba(40, 167, 69, 1)',
+        'rgba(255, 165, 52, 1)'
         ],
         borderWidth: 1
     }]

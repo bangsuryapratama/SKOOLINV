@@ -66,104 +66,18 @@
             </div>
             <div class="page-category">Inventaris Website</div>
 
-            <div class="row">
-              <div class="row">
-
-                <!-- Data Petugas -->
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-primary card-round">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="icon-big text-center">
-                            <i class="fas fa-address-card fa-2x"></i>
-                          </div>
-                        </div>
-                        <div class="col-8 col-stats">
-                          <div class="numbers">
-                            <p class="card-category">Data Peminjaman</p>
-                            <h4 class="card-title">{{ \App\Models\Peminjamans::count() }} Data</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                <!-- Data Barang -->
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-success card-round">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="icon-big text-center">
-                            <i class="fas fa-dolly fa-2x"></i>
-                          </div>
-                        </div>
-                        <div class="col-8 col-stats">
-                          <div class="numbers">
-                            <p class="card-category">Data Barang</p>
-                            <h4 class="card-title">{{ \App\Models\DataPusats::count() }} Data</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                <!-- Barang Masuk -->
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-secondary card-round">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="icon-big text-center">
-                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
-                          </div>
-                        </div>
-                        <div class="col-8 col-stats">
-                          <div class="numbers">
-                            <p class="card-category">Barang Masuk</p>
-                            <h4 class="card-title">{{ number_format(\App\Models\BarangMasuks::sum('jumlah')) }} Barang</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                <!-- Barang Keluar -->
-                <div class="col-sm-6 col-md-3">
-                  <div class="card card-stats card-warning card-round">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="icon-big text-center">
-                            <i class="fas fa-long-arrow-alt-up fa-2x"></i>
-                          </div>
-                        </div>
-                        <div class="col-8 col-stats">
-                          <div class="numbers">
-                            <p class="card-category">Barang Keluar</p>
-                            <h4 class="card-title">{{ number_format(\App\Models\BarangKeluar::sum('jumlah')) }} Data</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="count">
+               @include ('layouts.kerangka.count')
             </div>
 
             <div class="stats">
 
              @include('layouts.kerangka.statistik')
 
+
             </div>
 
-        
-           
-            </div>
+
           </div>
         </div> 
       </div>
