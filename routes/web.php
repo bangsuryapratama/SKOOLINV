@@ -30,7 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //Route AKSES BLOKIR
-Route::middleware('admin')->group(function () {
+Route::middleware('is_admin')->group(function () {
     Route::resource('pengguna', PenggunasController::class);
 });
 

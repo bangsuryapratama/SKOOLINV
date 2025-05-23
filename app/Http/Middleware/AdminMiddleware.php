@@ -16,9 +16,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->routeIs('pengguna .*') && Auth::user()-> is_admin !== 1){
-           abort(403, 'USER GA BISA MASUK YAAA DEKKK.');
-        }   
+         if ($request->routeIs('pengguna.*') && (Auth::check() && Auth::user()->is_admin !== 1)) {
+         abort(403, 'USER GA BISA MASUK YAAA DEKKK.');
+    }
         return $next($request);
     }
 }

@@ -76,7 +76,7 @@
     <div class="row g-4 align-items-center">
       <!-- Form -->
       <div class="col-lg-6">
-        <img src="{{ asset('assets/images/logop.png') }}" alt="Logo" class="img-fluid mb-4" style="max-height: 100px;">
+        <img src="{{ asset('assets/images/logowhite.png') }}" alt="Logo" class="img-fluid mb-4" style="max-height: 100px;">
         <p class="mb-4 text-white-50">Welcome Admin! Please login to continue.</p>
 
         <form method="POST" action="{{ route('login') }}">
