@@ -57,16 +57,21 @@ Route::resource('pengembalian', App\Http\Controllers\PengembalianController::cla
 
 
 
-// Route::resource('barang', App\Http\Controllers\DataPusatController::class);
+Route::prefix('petugas')->middleware(['auth', 'is_petugas'])->group(function () {
+    
+ Route::resource('barang', App\Http\Controllers\DataPusatController::class);
 
-// //Route Barang Masuk
-// Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
+//Route Barang Masuk
+Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
 
-// //Route Barang Keluar
-// Route::resource('barangkeluar', App\Http\Controllers\BarangKeluarController::class);
+//Route Barang Keluar
+Route::resource('barangkeluar', App\Http\Controllers\BarangKeluarController::class);
 
-// //Peminjaman
-// Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+//Peminjaman
+Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
 
-// //Pengembalian
-// Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
+//Pengembalian
+Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
+
+});
+

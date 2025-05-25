@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\DataPusats;
 use App\Models\Peminjamans;
 use App\Models\Pengembalians;
 use Illuminate\Http\Request;
@@ -62,7 +62,42 @@ class PengembalianController extends Controller
      */
     public function store(Request $request)
     {
+         // Validasi request
+    $request->validate([
+        'peminjaman_id' => 'required|exists:peminjamans,id',
+    ]);
 
+    // Ambil data peminjaman
+    $peminjaman = Peminjamans::findOrFail($request->peminjaman_id);
+
+    // Cek dulu apakah sudah dikembalikan
+    if ($peminjaman->status === 'Sudah Dikembalikan') {
+        return redirect()->back()->with('error', 'Barang ini sudah dikembalikan.');
+    }
+
+    // Update status peminjaman
+    $peminjaman->status = 'Sudah Dikembalikan';
+    $peminjaman->tglkembali = Carbon::now();
+    $peminjaman->save();
+
+    // Tambahkan ke tabel pengembalians
+    Pengembalians::create([
+        'peminjaman_id' => $peminjaman->id,
+        'kodebarang' => $peminjaman->kodebarang,
+        'namabarang' => $peminjaman->namabarang,
+        'peminjam' => $peminjaman->peminjam,
+        'jumlah' => $peminjaman->jumlah,
+        'tglkembali' => $peminjaman->tglkembali,
+    ]);
+
+    // Update stok barang di pusat (opsional)
+    $pusat = DataPusats::where('kodebarang', $peminjaman->kodebarang)->first();
+    if ($pusat) {
+        $pusat->stok += $peminjaman->jumlah;
+        $pusat->save();
+    }
+
+    return redirect()->route('pengembalian.index')->with('success', 'Barang berhasil dikembalikan dan data disimpan.');
     }
 
     /**
