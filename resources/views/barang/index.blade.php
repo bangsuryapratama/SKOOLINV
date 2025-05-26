@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Favicon -->
-  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
+  <link rel="icon" href="{{ asset('assets/images/logodoang.jpeg') }}" type="image/x-icon"/>
 
   <!-- Preload main CSS -->
   <link rel="preload" href="assets/css/bootstrap.min.css" as="style">

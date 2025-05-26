@@ -15,8 +15,10 @@
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Peminjaman</p>
-                          <h4 class="card-title">{{ \App\Models\Peminjamans::count() }} Peminjaman</h4>
+                              <p class="card-category" style="font-size: 0.80rem; margin-bottom: 2px;">Peminjaman</p>
+                              <h4 class="card-title" style="font-size: 1rem; margin-bottom: 5px;">
+                                {{ number_format(\App\Models\Peminjamans::count()) }} Peminjaman
+                              </h4>
                         </div>
                       </div>
                     </div>
@@ -38,8 +40,10 @@
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Data Barang</p>
-                          <h4 class="card-title">{{ \App\Models\DataPusats::count() }} Jenis Barang</h4>
+                           <p class="card-category" style="font-size: 0.80rem; margin-bottom: 2px;">Jenis Barang</p>
+                              <h4 class="card-title" style="font-size: 1rem; margin-bottom: 5px;">
+                                {{ number_format(\App\Models\DataPusats::count()) }} Barang
+                              </h4>
                         </div>
                       </div>
                     </div>
@@ -56,13 +60,14 @@
                         <div
                           class="icon-big text-center icon-success bubble-shadow-small"
                         >
-                          <i class="fas fa-long-arrow-alt-down"></i>
+                          <i class="fas fa-arrow-circle-down"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Barang Masuk</p>
-                          <h4 class="card-title">{{ number_format(\App\Models\BarangMasuks::sum('jumlah')) }} Barang Masuk</h4>
+                          <p class="card-category" style="font-size: 0.80rem; margin-bottom: 2px;">Barang Masuk</p>
+                          <h4 class="card-title"  style="font-size: 1rem; margin-bottom: 5px;">
+                            {{ number_format(\App\Models\BarangMasuks::sum('jumlah')) }} Barang Masuk</h4>
                         </div>
                       </div>
                     </div>
@@ -79,13 +84,14 @@
                         <div
                           class="icon-big text-center icon-warning bubble-shadow-small"
                         >
-                          <i class="fas fa-long-arrow-alt-up"></i>
+                          <i class="fas fa-arrow-circle-up"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Barang Keluar</p>
-                          <h4 class="card-title">{{ number_format(\App\Models\BarangKeluar::sum('jumlah')) }} Barang Keluar</h4>
+                          <p class="card-category" style="font-size: 0.80rem; margin-bottom: 2px;">Barang Keluar</p>
+                          <h4 class="card-title"  style="font-size: 1rem; margin-bottom: 5px;">
+                            {{ number_format(\App\Models\BarangKeluar::sum('jumlah')) }} Barang Keluar</h4>
                         </div>
                       </div>
                     </div>

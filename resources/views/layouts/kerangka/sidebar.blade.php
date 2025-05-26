@@ -71,28 +71,28 @@
 
             <li class="nav-item {{ request()->routeIs('barangmasuk.*') ? 'active' : '' }}">
               <a href="{{ route('barangmasuk.index') }}">
-                <i class="fas fa-arrow-circle-right"></i>
+                <i class="	fas fa-sign-in-alt"></i>
                 <p>Data Barang Masuk</p>
               </a>
             </li>
 
             <li class="nav-item {{ request()->routeIs('barangkeluar.*') ? 'active' : '' }}">
               <a href="{{ route('barangkeluar.index') }}">
-                <i class="fas fa-arrow-circle-left"></i>
+                <i class="	fas fa-sign-out-alt"></i>
                 <p>Data Barang Keluar</p>
               </a>
             </li>
 
             <li class="nav-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
               <a href="{{ route('peminjaman.index') }}">
-                <i class="fas fa-hand-holding"></i>
+                <i class="fas fa-box"></i>
                 <p>Data Peminjaman</p>
               </a>
             </li>
 
             <li class="nav-item {{ request()->routeIs('pengembalian.*') ? 'active' : '' }}">
               <a href="{{ route('pengembalian.index') }}">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-undo-alt"></i>
                 <p>Data Pengembalian</p>
               </a>
             </li>

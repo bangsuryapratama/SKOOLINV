@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Models\DataPusats;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,11 @@ use App\Http\Controllers\PengembalianController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 Route::get('/', function () {
-    return view('welcome');
+    $barangs = DataPusats::all();
+    return view('welcome', compact('barangs'));
 })->name('welcome')->middleware('auth');
 
 Auth::routes();
@@ -40,26 +44,6 @@ Route::resource('pengguna', PenggunasController::class);
 
 //Route Barang
 Route::resource('barang', App\Http\Controllers\DataPusatController::class);
-
-//Route Barang Masuk
-Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
-
-//Route Barang Keluar
-Route::resource('barangkeluar', App\Http\Controllers\BarangKeluarController::class);
-
-//Peminjaman
-Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
-
-//Pengembalian
-Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
-
-});
-
-
-
-Route::prefix('petugas')->middleware(['auth', 'is_petugas'])->group(function () {
-    
- Route::resource('barang', App\Http\Controllers\DataPusatController::class);
 
 //Route Barang Masuk
 Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
