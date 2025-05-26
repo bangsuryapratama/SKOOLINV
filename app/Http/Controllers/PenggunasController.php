@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class PenggunasController extends Controller
 {
@@ -20,6 +21,13 @@ class PenggunasController extends Controller
         return view('pengguna.index', compact('pengguna'));
     }
     
+ public function export()
+{
+    $data = User::all();
+
+    $pdf = Pdf::loadView('pengguna.pengguna_pdf', ['data' => $data]);
+    return $pdf->download('laporan-data-pengguna.pdf');
+}
 
 
 

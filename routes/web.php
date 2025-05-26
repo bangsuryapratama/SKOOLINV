@@ -40,7 +40,10 @@ Route::middleware('is_admin')->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     
-Route::resource('pengguna', PenggunasController::class);    
+Route::resource('pengguna', PenggunasController::class);  
+Route::get('petugas-export', [PenggunasController::class, 'export'])->name('petugas.export');
+
+
 
 //Route Barang
 Route::resource('barang', App\Http\Controllers\DataPusatController::class);
@@ -57,5 +60,9 @@ Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
 //Pengembalian
 Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
 
+
+
 });
 
+
+//pdf 

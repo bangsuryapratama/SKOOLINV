@@ -11,8 +11,8 @@
   <link href="assets/css/pace.min.css" rel="stylesheet">
   <script src="assets/js/pace.min.js"></script>
 
-   <!-- SweetAlert2 CDN -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!--plugins-->
   <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
@@ -33,7 +33,19 @@
   <link href="sass/bordered-theme.css" rel="stylesheet">
   <link href="sass/responsive.css" rel="stylesheet">
 
+  <style>
+    /* Custom style supaya tabel lebih lebar dan kolom proporsional */
+    table#example {
+      width: 100% !important;
+      table-layout: auto;
+    }
 
+    table#example th,
+    table#example td {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
 
 </head>
 
@@ -52,7 +64,7 @@
       </div>
 
       <!-- Table Section -->
-      <div class="container">
+      <div class="container-fluid">
         <div class="page-inner">
           <div class="page-header">
             <h3 class="fw-bold mb-3">Halaman Data Barang Masuk</h3>
@@ -61,27 +73,25 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="card-title mb-0">Data Barang</div>
-                  <a href="{{ route('barangmasuk.create') }}" class="btn btn-sm btn-success me-4">
-                  <i class="fa fa-plus"></i></a>
+                  <div class="card-title mb-0">Data Peminjam</div>
+                  <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-success me-4">
+                    <i class="fa fa-plus"></i></a>
                 </div>
-
                 @if (session('success'))
                 <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: '{{ session('success') }}',
-                        showConfirmButton: true,
-                        timer: 3000
-                    });
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: true,
+                    timer: 3000
+                  });
                 </script>
                 @endif
-
                 <div class="card-body">
                   <div class="panel-body">
                     <div class="table-responsive">
-                      <table class="table" id="example">
+                      <table class="table" id="example" style="width: 100%; table-layout: auto;">
                         <thead>
                           <tr>
                             <th>No</th>
@@ -116,9 +126,7 @@
                           </tr>
                           @endforeach
                         </tbody>
-                      </table>
 
-                      
                     </div>
                   </div>
                 </div> <!-- end card -->
@@ -130,21 +138,23 @@
     </div> <!-- end main-panel -->
   </div> <!-- end wrapper -->
 
- <!-- Scripts -->
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
-<script src="{{ asset('assets/plugins/metismenu/metisMenu.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+  <script src="{{ asset('assets/plugins/metismenu/metisMenu.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 
-<script>
+  <script>
     $(document).ready(function() {
-        $('#example').DataTable();
+      $('#example').DataTable();
     });
-</script>
-
-<script src="{{ asset('assets/js/main.js') }}"></script>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  @stack('scripts')
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
+
 </html>

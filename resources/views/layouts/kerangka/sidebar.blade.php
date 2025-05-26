@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>INVENTARIS</title>
-  
 </head>
 <body>
   <div class="sidebar" data-background-color="light">
-    
+
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="light-theme">
       <a href="{{ route('welcome') }}" class="text-dark navbar-brand d-flex justify-content-center align-items-center p-3">
@@ -42,7 +42,7 @@
             </a>
           </li>
 
-          <!-- Section -->
+          <!-- Section Header -->
           <li class="nav-section">
             <span class="sidebar-mini-icon">
               <i class="fa fa-ellipsis-h"></i>
@@ -52,52 +52,49 @@
 
           <!-- Menu Khusus Admin -->
           @if (Auth::check() && Auth::user()->is_admin === 1)
-
             <li class="nav-item {{ request()->routeIs('pengguna.*') ? 'active' : '' }}">
               <a href="{{ route('pengguna.index') }}">
                 <i class="fas fa-address-card"></i>
                 <p>Data Petugas</p>
               </a>
             </li>
-
           @endif
 
-            <li class="nav-item {{ request()->routeIs('barang.*') ? 'active' : '' }}">
-              <a href="{{ route('barang.index') }}">
-                <i class="fas fa-dolly-flatbed"></i>
-                <p>Data Barang</p>
-              </a>
-            </li>
+          <!-- Menu Umum -->
+          <li class="nav-item {{ request()->routeIs('barang.*') ? 'active' : '' }}">
+            <a href="{{ route('barang.index') }}">
+              <i class="fas fa-dolly-flatbed"></i>
+              <p>Data Barang</p>
+            </a>
+          </li>
 
-            <li class="nav-item {{ request()->routeIs('barangmasuk.*') ? 'active' : '' }}">
-              <a href="{{ route('barangmasuk.index') }}">
-                <i class="	fas fa-sign-in-alt"></i>
-                <p>Data Barang Masuk</p>
-              </a>
-            </li>
+          <li class="nav-item {{ request()->routeIs('barangmasuk.*') ? 'active' : '' }}">
+            <a href="{{ route('barangmasuk.index') }}">
+              <i class="fas fa-sign-in-alt"></i>
+              <p>Data Barang Masuk</p>
+            </a>
+          </li>
 
-            <li class="nav-item {{ request()->routeIs('barangkeluar.*') ? 'active' : '' }}">
-              <a href="{{ route('barangkeluar.index') }}">
-                <i class="	fas fa-sign-out-alt"></i>
-                <p>Data Barang Keluar</p>
-              </a>
-            </li>
+          <li class="nav-item {{ request()->routeIs('barangkeluar.*') ? 'active' : '' }}">
+            <a href="{{ route('barangkeluar.index') }}">
+              <i class="fas fa-sign-out-alt"></i>
+              <p>Data Barang Keluar</p>
+            </a>
+          </li>
 
-            <li class="nav-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
-              <a href="{{ route('peminjaman.index') }}">
-                <i class="fas fa-box"></i>
-                <p>Data Peminjaman</p>
-              </a>
-            </li>
+          <li class="nav-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
+            <a href="{{ route('peminjaman.index') }}">
+              <i class="fas fa-box"></i>
+              <p>Data Peminjaman</p>
+            </a>
+          </li>
 
-            <li class="nav-item {{ request()->routeIs('pengembalian.*') ? 'active' : '' }}">
-              <a href="{{ route('pengembalian.index') }}">
-                <i class="fas fa-undo-alt"></i>
-                <p>Data Pengembalian</p>
-              </a>
-            </li>
-
-      
+          <li class="nav-item {{ request()->routeIs('pengembalian.*') ? 'active' : '' }}">
+            <a href="{{ route('pengembalian.index') }}">
+              <i class="fas fa-undo-alt"></i>
+              <p>Data Pengembalian</p>
+            </a>
+          </li>
 
         </ul>
       </div>

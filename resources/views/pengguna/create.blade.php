@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/metisMenu.min.css">
   <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/mm-vertical.css">
   <link rel="stylesheet" type="text/css" href="assets/plugins/simplebar/css/simplebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!--bootstrap css-->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />

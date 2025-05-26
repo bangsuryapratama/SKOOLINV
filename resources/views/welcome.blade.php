@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no"name="viewport"/>
     <link rel="icon" href="{{ asset('assets/images/logodoang.jpeg') }}" type="image/x-icon"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
     <link
     rel="icon"
@@ -64,9 +65,9 @@
           <div class="page-inner">
             <div class="page-header">
           <div class="card mt-3 border-0 shadow rounded" style="background-image: url('/assets/images/bgdasbor.jpg'); background-size: cover; background-position: center;">
-           <div class="card-body text-light rounded" style="background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);  padding-right:750px;">
+           <div class="card-body text-light rounded" style="background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);  padding-right:771px;">
           <div>
-        <h4 class="fw-bold mb-1">Selamat Datang Kembali  <span class="fw-semibold">{{ Auth::check() ? explode(' ', Auth::user()->name)[0] : 'Guest' }}</span> !</h3>
+        <h4 class="fw-bold mb-1">Selamat Datang <span class="fw-semibold">{{ Auth::check() ? explode(' ', Auth::user()->name)[0] : 'Guest' }}</span> !</h3>
     </div>
   </div>
 </div>
@@ -80,6 +81,7 @@
 
             <div class="stats">
               @include('layouts.kerangka.statistik')
+
             </div>
 
 

@@ -5,32 +5,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Favicon -->
+  <!--favicon-->
   <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
-
-  <!-- Preload main CSS -->
-  <link rel="preload" href="assets/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="assets/css/bootstrap-extended.css" as="style">
-  <link rel="preload" href="assets/css/main.min.css" as="style">
-
-  <!-- CSS Utama -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/bootstrap-extended.css">
-  <link rel="stylesheet" href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css">
-  <link rel="stylesheet" href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
-  <link rel="stylesheet" href="assets/plugins/metismenu/metisMenu.min.css">
-  <link rel="stylesheet" href="assets/plugins/simplebar/css/simplebar.css">
-  <link rel="stylesheet" href="assets/css/main.min.css"> <!-- Gabungan dari semua theme CSS -->
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
-
-  <!-- Pace loader -->
-  <script src="assets/js/pace.min.js" defer></script>
+  <!-- loader-->
+  <link href="assets/css/pace.min.css" rel="stylesheet">
+  <script src="assets/js/pace.min.js"></script>
 
   <!-- SweetAlert2 CDN -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!--plugins-->
+  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/metisMenu.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/mm-vertical.css">
+  <link rel="stylesheet" type="text/css" href="assets/plugins/simplebar/css/simplebar.css">
+  <!--bootstrap css-->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+  <!--main css-->
+  <link href="assets/css/bootstrap-extended.css" rel="stylesheet">
+  <link href="sass/main.css" rel="stylesheet">
+  <link href="sass/dark-theme.css" rel="stylesheet">
+  <link href="sass/blue-theme.css" rel="stylesheet">
+  <link href="sass/semi-dark.css" rel="stylesheet">
+  <link href="sass/bordered-theme.css" rel="stylesheet">
+  <link href="sass/responsive.css" rel="stylesheet">
+
+  <style>
+    /* Custom style supaya tabel lebih lebar dan kolom proporsional */
+    table#example {
+      width: 100% !important;
+      table-layout: auto;
+    }
+
+    table#example th,
+    table#example td {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
 
 </head>
 
@@ -49,37 +64,34 @@
       </div>
 
       <!-- Table Section -->
-      <div class="container">
+      <div class="container-fluid">
         <div class="page-inner">
           <div class="page-header">
-            <h3 class="fw-bold mb-3">Halaman Data Barang Keluar</h3>
+            <h3 class="fw-bold mb-3">Halaman Data Barang Masuk</h3>
           </div>
           <div class="row">
             <div class="col-12">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="card-title mb-0">Data Barang</div>
-                  <a href="{{ route('barangkeluar.create') }}" class="btn btn-sm btn-success me-4">
-                  <i class="fa fa-plus"></i></a>
+                  <div class="card-title mb-0">Data Peminjam</div>
+                  <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-success me-4">
+                    <i class="fa fa-plus"></i></a>
                 </div>
-
-
                 @if (session('success'))
                 <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: '{{ session('success') }}',
-                        showConfirmButton: true,
-                        timer: 3000
-                    });
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: true,
+                    timer: 3000
+                  });
                 </script>
                 @endif
-
                 <div class="card-body">
                   <div class="panel-body">
                     <div class="table-responsive">
-                      <table class="table" id="example">
+                      <table class="table" id="example" style="width: 100%; table-layout: auto;">
                         <thead>
                           <tr>
                             <th>No</th>
@@ -114,7 +126,7 @@
                           </tr>
                           @endforeach
                         </tbody>
-                      </table>
+
                     </div>
                   </div>
                 </div> <!-- end card -->
@@ -126,23 +138,23 @@
     </div> <!-- end main-panel -->
   </div> <!-- end wrapper -->
 
-  <!-- JavaScript di akhir untuk mempercepat render -->
-  <script src="assets/js/jquery.min.js" defer></script>
-  <script src="assets/js/bootstrap.bundle.min.js" defer></script>
-  <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js" defer></script>
-  <script src="assets/plugins/metismenu/metisMenu.min.js" defer></script>
-  <script src="assets/plugins/simplebar/js/simplebar.min.js" defer></script>
-  <script src="assets/plugins/datatable/js/jquery.dataTables.min.js" defer></script>
-  <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
+  <!-- Scripts -->
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+  <script src="{{ asset('assets/plugins/metismenu/metisMenu.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 
-  <script defer>
-    document.addEventListener("DOMContentLoaded", function () {
+  <script>
+    $(document).ready(function() {
       $('#example').DataTable();
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @stack('scripts')
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>
