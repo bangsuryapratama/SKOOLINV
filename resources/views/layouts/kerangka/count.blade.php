@@ -16,7 +16,7 @@
           <div class="col col-stats ms-3 ms-sm-0">
             <div class="numbers">
               <p class="card-category text-muted mb-1" style="font-size: 0.8rem;">Peminjaman</p>
-              <h4 class="card-title" style="font-size: 1.2rem; font-weight: 700;">
+              <h4 class="card-title" style="font-size:1rem; font-weight: 700;">
                 {{ number_format(\App\Models\Peminjamans::count()) }} Peminjaman
               </h4>
             </div>
@@ -42,7 +42,7 @@
           <div class="col col-stats ms-3 ms-sm-0">
             <div class="numbers">
               <p class="card-category text-muted mb-1" style="font-size: 0.8rem;">Jenis Barang</p>
-              <h4 class="card-title" style="font-size: 1.2rem; font-weight: 700;">
+              <h4 class="card-title" style="font-size:1rem; font-weight: 700;">
                 {{ number_format(\App\Models\DataPusats::count()) }} Barang
               </h4>
             </div>
@@ -68,7 +68,7 @@
           <div class="col col-stats ms-3 ms-sm-0">
             <div class="numbers">
               <p class="card-category text-muted mb-1" style="font-size: 0.8rem;">Barang Masuk</p>
-              <h4 class="card-title" style="font-size: 1.2rem; font-weight: 700;">
+              <h4 class="card-title" style="font-size:1rem; font-weight: 700;">
                 {{ number_format(\App\Models\BarangMasuks::sum('jumlah')) }} Barang Masuk
               </h4>
             </div>
@@ -94,7 +94,7 @@
           <div class="col col-stats ms-3 ms-sm-0">
             <div class="numbers">
               <p class="card-category text-muted mb-1" style="font-size: 0.8rem;">Barang Keluar</p>
-              <h4 class="card-title" style="font-size: 1.2rem; font-weight: 700;">
+              <h4 class="card-title" style="font-size:1rem; font-weight: 700;">
                 {{ number_format(\App\Models\BarangKeluar::sum('jumlah')) }} Barang Keluar
               </h4>
             </div>

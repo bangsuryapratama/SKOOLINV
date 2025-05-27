@@ -58,9 +58,15 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="card-title mb-0">Data Barang</div>
-                  <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success me-4">
-                  <i class="fa fa-plus"></i></a>
+                  <div class="card-title mb-0">Data Pusat</div>
+                  <div>
+                    <a href="{{ route('datapusat.export') }}" class="btn btn-sm btn-danger me-2">
+                      <i class="fa fa-file-pdf"></i> Export PDF
+                    </a>
+                    <a href="{{ route('barang.create') }}" class="btn btn-sm btn-success">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
                 </div>
 
 

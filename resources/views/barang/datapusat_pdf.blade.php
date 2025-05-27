@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Data Petugas</title>
+    <title>Data Pusat Barang</title>
     <style>
         /* Font DejaVu Sans supaya support UTF-8 */
         body {
@@ -54,26 +54,32 @@
     </style>
 </head>
 <body>
-{{-- 
-    <center>
-               <img src="data:image/png;base64,{{ $logo }}" width="120" alt="Logo">
-    </center> --}}
-    <h3>Data Petugas</h3>
+
+    
+    <h3>Data Pusat Barang</h3>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
+                <th>Kode Barang</th>
                 <th>Nama</th>
-                <th>Email</th>
+                <th>Merek</th>
+                <th>Foto</th>
+                <th>Stok</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $i => $user)
+            @foreach($data as $i => $barang)
             <tr>
                 <td>{{ $i + 1 }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $barang->kode_barang }}</td>
+                <td>{{ $barang->nama }}</td>
+                <td>{{ $barang->merk }}</td>
+                <td>
+                    <img src="{{ asset('/images/barangs/' . $barang->foto) }}" width="70" alt="">
+                </td>
+                <td>{{ $barang->stok }}</td>
             </tr>
             @endforeach
         </tbody>

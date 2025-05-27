@@ -6,6 +6,7 @@ use App\Models\BarangMasuks;
 use App\Models\DataPusats;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BarangMasukController extends Controller
 {
@@ -16,6 +17,15 @@ class BarangMasukController extends Controller
     {
         $barangmasuk = BarangMasuks::all();
         return view('barangmasuk.index', compact('barangmasuk'));
+    }
+
+     public function export()
+    {
+        
+    $masuk = BarangMasuks::all();
+
+    $pdf = Pdf::loadView('barangmasuk.datamasuk_pdf', ['masuk' => $masuk]);
+    return $pdf->download('laporan-data-masuk.pdf');
     }
 
     /**

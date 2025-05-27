@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BarangKeluar;
 use App\Models\DataPusats;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BarangKeluarController extends Controller
@@ -18,6 +19,15 @@ class BarangKeluarController extends Controller
         // Display a listing of the resource
         $barangkeluar = BarangKeluar::all();
         return view('barangkeluar.index', compact('barangkeluar'));
+    }
+
+     public function export()
+    {
+        
+    $keluar = BarangKeluar::all();
+
+    $pdf = Pdf::loadView('barangkeluar.datakeluar_pdf', ['keluar' => $keluar]);
+    return $pdf->download('laporan-data-keluar.pdf');
     }
 
     /**

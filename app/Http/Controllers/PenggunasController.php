@@ -24,9 +24,9 @@ class PenggunasController extends Controller
  public function export()
 {
     $data = User::all();
-
-    $pdf = Pdf::loadView('pengguna.pengguna_pdf', ['data' => $data]);
-    return $pdf->download('laporan-data-pengguna.pdf');
+    $pdf = PDF::loadView('pengguna.pengguna_pdf', ['data' => $data]);
+    return $pdf->download('laporan-pengguna.pdf');
+    
 }
 
 

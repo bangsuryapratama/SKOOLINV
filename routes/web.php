@@ -47,22 +47,25 @@ Route::get('petugas-export', [PenggunasController::class, 'export'])->name('petu
 
 //Route Barang
 Route::resource('barang', App\Http\Controllers\DataPusatController::class);
+Route::get('datapusat-export', [DataPusatController::class, 'export'])->name('datapusat.export');
 
 //Route Barang Masuk
 Route::resource('barangmasuk', App\Http\Controllers\BarangMasukController::class);
+Route::get('barangmasuk-export', [BarangMasukController::class, 'export'])->name('barangmasuk.export');
 
 //Route Barang Keluar
 Route::resource('barangkeluar', App\Http\Controllers\BarangKeluarController::class);
+Route::get('barangkeluar-export', [BarangKeluarController::class, 'export'])->name('barangkeluar.export');
 
 //Peminjaman
 Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+Route::get('peminjaman-export', [PeminjamanController::class, 'export'])->name('peminjaman.export');
 
 //Pengembalian
 Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
+Route::get('pengembalian-export', [PengembalianController::class, 'export'])->name('pengembalian.export');
 
 
 
 });
 
-
-//pdf 

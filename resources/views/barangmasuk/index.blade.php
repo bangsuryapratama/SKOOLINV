@@ -74,8 +74,14 @@
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <div class="card-title mb-0">Data Peminjam</div>
-                  <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-success me-4">
-                    <i class="fa fa-plus"></i></a>
+                  <div>
+                    <a href="{{ route('barangmasuk.export') }}" class="btn btn-sm btn-danger me-2">
+                      <i class="fa fa-file-pdf"></i> Export PDF
+                    </a>
+                    <a href="{{ route('barangmasuk.create') }}" class="btn btn-sm btn-success">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
                 </div>
                 @if (session('success'))
                 <script>
@@ -95,11 +101,11 @@
                         <thead>
                           <tr>
                             <th>No</th>
+                            <th>Nama Barang</th>
                             <th>Kode Barang</th>
                             <th>Jumlah</th>
                             <th>Tanggal Masuk</th>
                             <th>Keterangan</th>
-                            <th>Nama Barang</th>
                             <th class="text-center">Aksi</th>
                           </tr>
                         </thead>
@@ -108,11 +114,11 @@
                           @foreach ($barangmasuk as $data)
                           <tr>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $data->barang->nama }}</td>
                             <td>{{ $data->kode_barang }}</td>
                             <td>{{ $data->jumlah }}</td>
                             <td>{{ $data->tglmasuk }}</td>
                             <td>{{ $data->ket }}</td>
-                            <td>{{ $data->barang->nama }}</td>
                             <td class="text-center col-4">
                               <form action="{{ route('barangmasuk.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
                                 <a href="{{ route('barangmasuk.show', $data->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>

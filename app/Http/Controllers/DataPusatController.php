@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DataPusats;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class DataPusatController extends Controller
 {
@@ -18,6 +19,16 @@ class DataPusatController extends Controller
         Alert::warning('Hapus Data!', 'Apakah Anda Yakin?');
         return view('barang.index', compact('barangs'));
     }
+
+     public function export()
+    {
+        
+    $data = DataPusats::all();
+
+    $pdf = Pdf::loadView('barang.datapusat_pdf', ['data' => $data]);
+    return $pdf->download('laporan-data-pusat.pdf');
+    }
+
 
     /**
      * Show the form for creating a new resource.

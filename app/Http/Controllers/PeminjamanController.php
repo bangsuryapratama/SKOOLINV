@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluar;
 use App\Models\DataPusats;
 use App\Models\Peminjaman;
 use App\Models\Peminjamans;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -44,6 +46,16 @@ class PeminjamanController extends Controller
 
     return view('peminjaman.index', compact('pinjam'));
 }
+
+    public function export()
+    {
+        
+    $keluar = BarangKeluar::all();
+
+    $pdf = Pdf::loadView('barangkeluar.datakeluar_pdf', ['keluar' => $keluar]);
+    return $pdf->download('laporan-data-keluar.pdf');
+    }
+   
 
 
     /**
