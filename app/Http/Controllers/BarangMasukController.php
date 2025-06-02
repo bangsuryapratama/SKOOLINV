@@ -116,6 +116,7 @@ class BarangMasukController extends Controller
             'tglmasuk.required' => 'Tanggal masuk tidak boleh kosong',
             'tglmasuk.date' => 'Format tanggal tidak valid',
             'ket.string' => 'Keterangan harus berupa teks',
+            'ket.required' => 'Keterangan tidak boleh kosong',
             'id_barang.required' => 'ID Barang tidak boleh kosong',
             'id_barang.exists' => 'ID Barang tidak ditemukan',
         ]);

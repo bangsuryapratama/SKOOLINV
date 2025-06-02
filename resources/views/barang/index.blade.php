@@ -2,40 +2,58 @@
 <html lang="en" data-bs-theme="blue-theme">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="{{ asset('assets/images/logodoang.jpeg') }}" type="image/x-icon"/>
+  <!-- favicon -->
+  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+  <!-- loader -->
+  <link href="assets/css/pace.min.css" rel="stylesheet" />
+  <script src="assets/js/pace.min.js"></script>
 
-  <!-- Preload main CSS -->
-  <link rel="preload" href="assets/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="assets/css/bootstrap-extended.css" as="style">
-  <link rel="preload" href="assets/css/main.min.css" as="style">
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- CSS Utama -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/bootstrap-extended.css">
-  <link rel="stylesheet" href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css">
-  <link rel="stylesheet" href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
-  <link rel="stylesheet" href="assets/plugins/metismenu/metisMenu.min.css">
-  <link rel="stylesheet" href="assets/plugins/simplebar/css/simplebar.css">
-  <link rel="stylesheet" href="assets/css/main.min.css"> <!-- Gabungan dari semua theme CSS -->
+  <!-- plugins -->
+  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/plugins/metismenu/metisMenu.min.css" />
+  <link rel="stylesheet" href="assets/plugins/metismenu/mm-vertical.css" />
+  <link rel="stylesheet" href="assets/plugins/simplebar/css/simplebar.css" />
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="assets/css/bootstrap-extended.css" rel="stylesheet" />
+  <link href="sass/main.css" rel="stylesheet" />
+  <link href="sass/dark-theme.css" rel="stylesheet" />
+  <link href="sass/blue-theme.css" rel="stylesheet" />
+  <link href="sass/semi-dark.css" rel="stylesheet" />
+  <link href="sass/bordered-theme.css" rel="stylesheet" />
+  <link href="sass/responsive.css" rel="stylesheet" />
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+  <style>
+    /* Membuat tabel lebih lebar dan kolom proporsional */
+    table#example {
+      width: 100% !important;
+      table-layout: auto;
+    }
 
-  <!-- Pace loader -->
-  <script src="assets/js/pace.min.js" defer></script>
+    table#example th,
+    table#example td {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
 
-   <!-- SweetAlert2 CDN -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+    /* Tambahan styling untuk gambar barang */
+    .img-barang {
+      width: 70px;
+      height: auto;
+      object-fit: contain;
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar sidebar-style-2">
@@ -49,7 +67,7 @@
       </div>
 
       <!-- Table Section -->
-      <div class="container">
+      <div class="container-fluid">
         <div class="page-inner">
           <div class="page-header">
             <h3 class="fw-bold mb-3">Halaman Data Barang</h3>
@@ -58,7 +76,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="card-title mb-0">Data Pusat</div>
+                  <div class="card-title mb-0">Data Barang</div>
                   <div>
                     <a href="{{ route('datapusat.export') }}" class="btn btn-sm btn-danger me-2">
                       <i class="fa fa-file-pdf"></i> Export PDF
@@ -69,64 +87,68 @@
                   </div>
                 </div>
 
-
                 @if (session('success'))
                 <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: '{{ session('success') }}',
-                        showConfirmButton: true,
-                        timer: 3000
-                    });
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: true,
+                    timer: 3000,
+                  });
                 </script>
                 @endif
 
                 <div class="card-body">
                   <div class="panel-body">
                     <div class="table-responsive">
-                      <table class="table" id="example">
+                      <table class="table table-striped table-bordered" id="example" style="width: 100%; table-layout: auto;">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Barang</th>
-                                <th>Nama</th>
-                                <th>Merek</th>
-                                <th>Foto</th>
-                                <th>Stok</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
+                          <tr>
+                            <th style="width: 60px;">No</th>
+                            <th style="width: 150px;">Kode Barang</th>
+                            <th style="width: 250px;">Nama</th>
+                            <th style="width: 200px;">Merek</th>
+                            <th style="width: 100px;">Foto</th>
+                            <th style="width: 100px;">Stok</th>
+                            <th style="width: 150px;" class="text-center">Aksi</th>
+                          </tr>
                         </thead>
                         <tbody>
-                        @php $no = 1; @endphp
-                        @foreach ($barangs as $data)
-                        <tr>
-                            <th>{{ $no++ }}</th>
-                            <td>{{ $data->kode_barang }}</td>
-                            <td>{{ $data->nama }}</td>
-                            <td>{{ $data->merk }}</td>
+                          @php $no = 1; @endphp
+                          @foreach ($barangs as $barang)
+                          <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $barang->kode_barang }}</td>
+                            <td>{{ $barang->nama }}</td>
+                            <td>{{ $barang->merk }}</td>
                             <td>
-                                <img src="{{ asset('/images/barangs/' . $data->foto) }}" width="70" alt="">
+                              <img src="{{ asset('images/barangs/' . $barang->foto) }}" alt="{{ $barang->nama }}" class="img-barang" />
                             </td>
-                            <td>{{ $data->stok }}</td>
-                            <td class="text-center col-4">
-                                <form action="{{ route('barang.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                <a href="{{ route('barang.show', $data->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                                <a href="{{ route('barang.edit', $data->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                            <td>{{ $barang->stok }}</td>
+                            <td class="text-center">
+                              <form action="{{ route('barang.destroy', $barang->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');" style="display: inline-block;">
+                                <a href="{{ route('barang.show', $barang->id) }}" class="btn btn-sm btn-warning" title="Lihat Detail">
+                                  <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-sm btn-primary" title="Edit">
+                                  <i class="fa fa-pen"></i>
+                                </a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
+                                  <i class="fas fa-trash"></i>
                                 </button>
-                                </form>
-                               </td>
-                            </tr>
-                        @endforeach
-                       </tbody>
+                              </form>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
                       </table>
                     </div>
                   </div>
-                </div> <!-- end card -->
-              </div>
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
             </div>
           </div>
         </div>
@@ -134,24 +156,39 @@
     </div> <!-- end main-panel -->
   </div> <!-- end wrapper -->
 
-  <!-- JavaScript di akhir untuk mempercepat render -->
-  <script src="assets/js/jquery.min.js" defer></script>
-  <script src="assets/js/bootstrap.bundle.min.js" defer></script>
-  <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js" defer></script>
-  <script src="assets/plugins/metismenu/metisMenu.min.js" defer></script>
-  <script src="assets/plugins/simplebar/js/simplebar.min.js" defer></script>
-  <script src="assets/plugins/datatable/js/jquery.dataTables.min.js" defer></script>
-  <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
+  <!-- Scripts -->
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+  <script src="{{ asset('assets/plugins/metismenu/metisMenu.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 
-  <script defer>
-    document.addEventListener("DOMContentLoaded", function () {
-      $('#example').DataTable();
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable({
+        "autoWidth": false,
+        "lengthChange": true,
+        "pageLength": 10,
+        "language": {
+          "search": "Cari:",
+          "lengthMenu": "Tampilkan _MENU_ data per halaman",
+          "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+          "paginate": {
+            "first": "Awal",
+            "last": "Akhir",
+            "next": "Selanjutnya",
+            "previous": "Sebelumnya"
+          }
+        }
+      });
     });
   </script>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @stack('scripts')
-
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>

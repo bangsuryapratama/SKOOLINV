@@ -106,7 +106,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Keterangan</label>
-                                <input type="text" class="form-control @error('ket') is-invalid @enderror" name="ket"
+                                <input type="text" class="form-control @error('ket') is-invalid @enderror" name="ket" 
+                                    value="{{ old('ket') }}"
                                     placeholder="Masukan Keterangan" id="putih" style="color: #000; background-color: #f5f5f5;">
                                 @error('ket')
                                     <span class="invalid-feedback" role="alert">
