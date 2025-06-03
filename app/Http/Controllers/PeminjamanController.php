@@ -50,10 +50,11 @@ class PeminjamanController extends Controller
     public function export()
     {
         
-    $keluar = BarangKeluar::all();
+    $peminjaman = Peminjamans::with('barang')->get();
 
-    $pdf = Pdf::loadView('barangkeluar.datakeluar_pdf', ['keluar' => $keluar]);
-    return $pdf->download('laporan-data-keluar.pdf');
+        $pdf = PDF::loadView('peminjaman.peminjaman_pdf', compact('peminjaman'));
+        $pdf->setPaper('A4', 'landscape'); 
+        return $pdf->download('data-peminjaman.pdf');
     }
    
 

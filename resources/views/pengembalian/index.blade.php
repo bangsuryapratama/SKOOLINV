@@ -67,15 +67,15 @@
       <div class="container-fluid">
         <div class="page-inner">
           <div class="page-header">
-            <h3 class="fw-bold mb-3">Halaman Data Peminjaman</h3>
+            <h3 class="fw-bold mb-3">Halaman Data Pengembalian</h3>
           </div>
           <div class="row">
             <div class="col-12">
               <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="card-title mb-0">Data Peminjam</div>
-                  <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-success me-4">
-                    <i class="fa fa-plus"></i></a>
+                  <a href="{{ route('pengembalian.export') }}" class="btn btn-sm btn-danger me-2">
+                      <i class="fa fa-file-pdf"></i> Export PDF
+                    </a>
                 </div>
                 @if (session('success'))
                 <script>
@@ -123,9 +123,7 @@
                             <td>{{ $data->barang->nama }}</td>
                             <td class="text-center col-4">
 
-                              <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
-                                <a href="{{ route('peminjaman.show', $data->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                                <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                              <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Anda ingin menghapus data tersebut?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
@@ -156,6 +154,8 @@
   <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
   <script>
     $(document).ready(function() {

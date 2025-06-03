@@ -43,7 +43,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
 Route::resource('pengguna', PenggunasController::class);  
 Route::get('petugas-export', [PenggunasController::class, 'export'])->name('petugas.export');
 
-
+});
 
 //Route Barang
 Route::resource('barang', App\Http\Controllers\DataPusatController::class);
@@ -67,5 +67,13 @@ Route::get('pengembalian-export', [PengembalianController::class, 'export'])->na
 
 
 
-});
 
+
+// Route::get('/api/statistik', function () {
+//     return response()->json([
+//         'barangDipinjam' => \App\Models\Peminjamans::sum('jumlah'),
+//         'barangTotal'    => \App\Models\DataPusats::count(),
+//         'barangMasuk'    => \App\Models\BarangMasuks::sum('jumlah'),
+//         'barangKeluar'   => \App\Models\BarangKeluar::sum('jumlah')
+//     ]);
+// });

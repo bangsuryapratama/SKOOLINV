@@ -7,31 +7,48 @@
 
   <!-- favicon -->
   <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
-  <!-- loader -->
-  <link href="assets/css/pace.min.css" rel="stylesheet" />
-  <script src="assets/js/pace.min.js"></script>
 
-  <!-- SweetAlert2 CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Preload CSS  -->
+  <link rel="preload" href="assets/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="sass/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="assets/plugins/metismenu/metisMenu.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="assets/plugins/simplebar/css/simplebar.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 
-  <!-- plugins -->
-  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/plugins/metismenu/metisMenu.min.css" />
-  <link rel="stylesheet" href="assets/plugins/metismenu/mm-vertical.css" />
-  <link rel="stylesheet" href="assets/plugins/simplebar/css/simplebar.css" />
+  
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="sass/main.css" rel="stylesheet" />
+  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+  <link href="assets/plugins/metismenu/metisMenu.min.css" rel="stylesheet" />
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+  
+  <link href="sass/blue-theme.css" rel="stylesheet" />
+  <!-- <link href="sass/dark-theme.css" rel="stylesheet" /> -->
+  <!-- <link href="sass/semi-dark.css" rel="stylesheet" /> -->
+  <!-- <link href="sass/bordered-theme.css" rel="stylesheet" /> -->
+  
   <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet" />
+
   <link href="assets/css/bootstrap-extended.css" rel="stylesheet" />
-  <link href="sass/main.css" rel="stylesheet" />
-  <link href="sass/dark-theme.css" rel="stylesheet" />
-  <link href="sass/blue-theme.css" rel="stylesheet" />
-  <link href="sass/semi-dark.css" rel="stylesheet" />
-  <link href="sass/bordered-theme.css" rel="stylesheet" />
   <link href="sass/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/plugins/metismenu/mm-vertical.css" />
+
+  <!-- Pace loader -->
+  <link href="assets/css/pace.min.css" rel="stylesheet" />
+  <script src="assets/js/pace.min.js" defer></script>
+
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
   <style>
+    /* cegah FOUC dengan sembunyikan body dulu */
+    body {
+      visibility: hidden;
+    }
+
     /* Membuat tabel lebih lebar dan kolom proporsional */
     table#example {
       width: 100% !important;
@@ -44,6 +61,13 @@
       vertical-align: middle;
     }
   </style>
+
+  <script>
+    // Tampilkan body setelah halaman benar-benar loaded dan CSS sudah siap
+    window.addEventListener('load', () => {
+      document.body.style.visibility = 'visible';
+    });
+  </script>
 </head>
 
 <body>
@@ -68,13 +92,11 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <div
-                  class="card-header d-flex justify-content-between align-items-center"
-                >
+                <div class="card-header d-flex justify-content-between align-items-center">
                   <div class="card-title mb-0">Data Petugas</div>
-                  <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success me-4"
-                    ><i class="fa fa-plus"></i></a
-                  >
+                  <a href="{{ route('pengguna.create') }}" class="btn btn-sm btn-success me-4">
+                    <i class="fa fa-plus"></i>
+                  </a>
                 </div>
 
                 @if (session('success'))
@@ -92,11 +114,7 @@
                 <div class="card-body">
                   <div class="panel-body">
                     <div class="table-responsive">
-                      <table
-                        class="table table-striped table-bordered"
-                        id="example"
-                        style="width: 100%; table-layout: auto;"
-                      >
+                      <table class="table table-striped table-bordered" id="example">
                         <thead>
                           <tr>
                             <th style="width: 60px;">No</th>
@@ -113,31 +131,16 @@
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             <td class="text-center">
-                              <form
-                                action="{{ route('pengguna.destroy', $data->id) }}"
-                                method="POST"
+                              <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST"
                                 onsubmit="return confirm('Anda ingin menghapus data tersebut?');"
-                                style="display: inline-block;"
-                              >
-                                <a
-                                  href="{{ route('pengguna.show', $data->id) }}"
-                                  class="btn btn-sm btn-warning"
-                                  title="Lihat Detail"
-                                  ><i class="fa fa-eye"></i
-                                ></a>
-                                <a
-                                  href="{{ route('pengguna.edit', $data->id) }}"
-                                  class="btn btn-sm btn-primary"
-                                  title="Edit"
-                                  ><i class="fa fa-pen"></i
-                                ></a>
+                                style="display: inline-block;">
+                                <a href="{{ route('pengguna.show', $data->id) }}" class="btn btn-sm btn-warning"
+                                  title="Lihat Detail"><i class="fa fa-eye"></i></a>
+                                <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-sm btn-primary"
+                                  title="Edit"><i class="fa fa-pen"></i></a>
                                 @csrf
                                 @method('DELETE')
-                                <button
-                                  type="submit"
-                                  class="btn btn-sm btn-danger"
-                                  title="Hapus"
-                                >
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
                                   <i class="fas fa-trash"></i>
                                 </button>
                               </form>
@@ -164,31 +167,31 @@
   <script src="{{ asset('assets/plugins/metismenu/metisMenu.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 
   <script>
     $(document).ready(function () {
       $('#example').DataTable({
-        // opsi tambahan bisa ditambah disini jika perlu
-        "autoWidth": false,
-        "lengthChange": true,
-        "pageLength": 10,
-        "language": {
-          "search": "Cari:",
-          "lengthMenu": "Tampilkan _MENU_ data per halaman",
-          "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-          "paginate": {
-            "first": "Awal",
-            "last": "Akhir",
-            "next": "Selanjutnya",
-            "previous": "Sebelumnya"
+        autoWidth: false,
+        lengthChange: true,
+        pageLength: 10,
+        language: {
+          search: "Cari:",
+          lengthMenu: "Tampilkan _MENU_ data per halaman",
+          info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+          paginate: {
+            first: "Awal",
+            last: "Akhir",
+            next: "Selanjutnya",
+            previous: "Sebelumnya"
           }
         }
       });
     });
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @stack('scripts')
   <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>

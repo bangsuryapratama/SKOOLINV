@@ -6,6 +6,7 @@ use App\Models\DataPusats;
 use App\Models\Peminjamans;
 use App\Models\Pengembalians;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 
 Carbon::setLocale('id');
@@ -25,25 +26,20 @@ class PengembalianController extends Controller
 
    public function index(Request $request)
      {
-        $tanggalAwal = $request->input('tanggal_awal');
-        $tanggalAkhir = $request->input('tanggal_akhir');
-
-        if (!$tanggalAwal || !$tanggalAkhir) {
-            $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')->get();
-        } else {
-            $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')
-                ->whereBetween('tglkembali', [$tanggalAwal, $tanggalAkhir])
-                ->get();
-        }
-
-        foreach ($pengembalian as $data) {
-            $data->formatted_tanggal_pinjam = Carbon::parse($data->tglpinjam)->translatedFormat('l, d F Y');
-            $data->formatted_tanggal_kembali = Carbon::parse($data->tglkembali)->translatedFormat('l, d F Y');
-        }
-
+        $pengembalian = Peminjamans::where('status', 'Sudah Dikembalikan')->get();
         return view('pengembalian.index', compact('pengembalian'));
     }
 
+     public function export()
+    {
+        
+      $pengembalian = Peminjamans::with('barang')->where('status', 'Sudah Dikembalikan')->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pengembalian.pengembalian_pdf', compact('pengembalian'));
+        $pdf->setPaper('A4', 'landscape'); 
+        return $pdf->download('data-pengembalian.pdf');
+    }
     /**
      * Show the form for creating a new resource.
      *
